@@ -1,6 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {
+  setDeparture,
+  setArrival,
+} from "../../../redux/actions/searchFlyQuerries";
 
 import axios from "axios";
 import uuid from "uuid";
@@ -91,8 +96,19 @@ class PlaceSearchAutocomplete extends React.Component {
     }
   };
 
+  reduxHandler = (type, placeName) => {
+    const {setDeparture, setArrival} = this.props;
+    switch (type) {
+      case "departure":
+        return setDeparture(placeName);
+      case "arrival":
+        return setArrival(placeName);
+    }
+  };
+
   renderSugestions = () => {
     const {results} = this.state;
+    const {type} = this.props;
     if (results.length === 0) {
       return null;
     }
@@ -123,6 +139,7 @@ class PlaceSearchAutocomplete extends React.Component {
                 results: [],
                 loading: false,
               });
+              this.reduxHandler(type, item.PlaceName);
             }}
           >
             <div
@@ -145,6 +162,7 @@ class PlaceSearchAutocomplete extends React.Component {
 
   handleKeyDown(e) {
     const {cursor, results} = this.state;
+    const {type} = this.props;
     const {keyCode} = e;
     // arrow up/down button should select next/previous list element
     if (keyCode === 38) {
@@ -175,6 +193,7 @@ class PlaceSearchAutocomplete extends React.Component {
         loading: false,
         message: "",
       });
+      this.reduxHandler(type, resultsCopy[cursor].PlaceName);
     }
   }
 
@@ -209,5 +228,9 @@ class PlaceSearchAutocomplete extends React.Component {
     );
   }
 }
+const mapDispatchToProps = {
+  setDeparture,
+  setArrival,
+};
 
-export default PlaceSearchAutocomplete;
+export default connect(null, mapDispatchToProps)(PlaceSearchAutocomplete);

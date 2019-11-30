@@ -1,9 +1,16 @@
-import React, {Component} from "react";
+import React from "react";
 import PropTypes from "prop-types";
+
+import {connect} from "react-redux";
+import {
+  setDepartureDate,
+  setArrivalDate,
+} from "../../../redux/actions/searchFlyQuerries";
+
 import Calendar from "react-calendar";
 import moment from "moment";
 
-export default class CalendarDate extends Component {
+class CalendarDate extends React.Component {
   static propTypes = {
     dateLabel: PropTypes.string.isRequired,
   };
@@ -33,12 +40,19 @@ export default class CalendarDate extends Component {
   }
 
   onChange = date => {
-    const dateTime = date;
-    const dateFormated = moment(dateTime).toObject();
-    const data = `${dateFormated.years}-${dateFormated.months + 1}-${
-      dateFormated.date
+    const {type, setDepartureDate, setArrivalDate} = this.props;
+    const dateTime = moment(date).toObject();
+    const dateFormated = `${dateTime.years}-${dateTime.months + 1}-${
+      dateTime.date
     }`;
-    this.setState({date: data});
+    this.setState({date: dateFormated});
+    console.log("dateFromate", dateFormated, type);
+    switch (type) {
+      case "from":
+        return setDepartureDate(dateFormated);
+      case "to":
+        return setArrivalDate(dateFormated);
+    }
   };
 
   showCalendarHandler = () => {
@@ -66,3 +80,10 @@ export default class CalendarDate extends Component {
     );
   }
 }
+
+const mapDispatchToProps = {
+  setDepartureDate,
+  setArrivalDate,
+};
+
+export default connect(null, mapDispatchToProps)(CalendarDate);

@@ -1,0 +1,4 @@
+export const SET_DEPARTURE = "SET_DEPARTURE";
+export const SET_ARRIVAL = "SET_ARRIVAL";
+export const SET_DEPARTURE_DATE = "SET_DEPARTURE_DATE";
+export const SET_ARRIVAL_DATE = "SET_ARRIVAL_DATE";

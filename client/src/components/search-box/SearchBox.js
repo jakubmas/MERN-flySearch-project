@@ -8,16 +8,19 @@ export default class SearchBox extends Component {
       <div>
         <div style={{display: "flex"}}>
           <div>
-            <PlaceSearchAutocomplete placeholderName="Departure" />
+            <PlaceSearchAutocomplete
+              placeholderName="Departure"
+              type="departure"
+            />
           </div>
           <div>
-            <PlaceSearchAutocomplete placeholderName="Arrival" />
+            <PlaceSearchAutocomplete placeholderName="Arrival" type="arrival" />
           </div>
           <div>
-            <CalendarDate dateLabel="From" />
+            <CalendarDate dateLabel="From" type="from" />
           </div>
           <div>
-            <CalendarDate dateLabel="To" />
+            <CalendarDate dateLabel="To" type="to" />
           </div>
         </div>
       </div>
