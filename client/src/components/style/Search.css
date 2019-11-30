@@ -1,0 +1,74 @@
+.container {
+  width: 100%;
+  -webkit-box-shadow: 4px 6px 5px -2px rgba(0, 0, 0, 0.26);
+  box-shadow: 4px 6px 5px -2px rgba(0, 0, 0, 0.26);
+}
+
+.autoCompleteText {
+  width: 100%;
+  border: 1px solid grey;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+.autoCompleteText input {
+  background-color: #fcefe3;
+  width: 100%;
+  border: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  padding: 10px 10px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.autoCompleteText ul {
+  list-style-type: none;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid grey;
+}
+
+.autoCompleteText ul::before {
+  content: "";
+}
+
+.autoCompleteText li {
+  padding: 10px 5px;
+}
+
+/* list items */
+.inactive {
+  background-color: #fcefe3;
+}
+
+.active {
+  text-decoration: underline;
+  background-color: #008f68;
+}
+
+.country-name-list {
+  font-size: 12px;
+  margin: 2px;
+}
+
+.place-name-list {
+  font-weight: 600;
+  margin: 0px;
+}
+/* loader */
+.search-loading {
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+}
+
+.show {
+  display: inline-block;
+}
+
+.hide {
+  display: none;
+}
