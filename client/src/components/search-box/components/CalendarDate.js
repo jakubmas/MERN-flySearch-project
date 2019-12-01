@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
 import {connect} from "react-redux";
@@ -37,21 +38,45 @@ class CalendarDate extends React.Component {
     if (dateLabel === "To") {
       this.setState({date: ""});
     }
+    document.addEventListener("click", this.handleClickOutside, true);
   }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleClickOutside, true);
+  }
+
+  handleClickOutside = event => {
+    const domNode = ReactDOM.findDOMNode(this);
+
+    if (!domNode || !domNode.contains(event.target)) {
+      this.setState({
+        showCalendarDeparture: false,
+      });
+    }
+  };
 
   onChange = date => {
     const {type, setDepartureDate, setArrivalDate} = this.props;
     const dateTime = moment(date).toObject();
-    const dateFormated = `${dateTime.years}-${dateTime.months + 1}-${
-      dateTime.date
-    }`;
+
+    const validation = value => {};
+
+    const day = dateTime.date.toString();
+    const month = (dateTime.months + 1).toString();
+    const dateFormated = `${dateTime.years}-${
+      month.length <= 1 ? "0" + month : month
+    }-${day.length <= 1 ? "0" + day : day}`;
+
+    console.log("dateFormated", dateFormated);
     this.setState({date: dateFormated});
-    console.log("dateFromate", dateFormated, type);
+    console.log("state", this.state);
     switch (type) {
       case "from":
         return setDepartureDate(dateFormated);
       case "to":
         return setArrivalDate(dateFormated);
+      default:
+        return null;
     }
   };
 
@@ -75,7 +100,9 @@ class CalendarDate extends React.Component {
             style={{cursor: "pointer"}}
           />
         </div>
-        {showCalendarDeparture ? <Calendar onChange={this.onChange} /> : null}
+        <div style={{position: "absolute"}}>
+          {showCalendarDeparture ? <Calendar onChange={this.onChange} /> : null}
+        </div>
       </div>
     );
   }

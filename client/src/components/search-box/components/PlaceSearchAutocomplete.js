@@ -54,7 +54,7 @@ class PlaceSearchAutocomplete extends React.Component {
 
   // fetch data from API
   fetchSearchResult = query => {
-    const searchUrl = `/api/place/${query}`;
+    const searchUrl = `/api/${query}`;
 
     if (this.cancel) {
       this.cancel.cancel();
@@ -96,13 +96,15 @@ class PlaceSearchAutocomplete extends React.Component {
     }
   };
 
-  reduxHandler = (type, placeName) => {
+  reduxHandler = (type, placeId) => {
     const {setDeparture, setArrival} = this.props;
     switch (type) {
       case "departure":
-        return setDeparture(placeName);
+        return setDeparture(placeId);
       case "arrival":
-        return setArrival(placeName);
+        return setArrival(placeId);
+      default:
+        return null;
     }
   };
 
@@ -139,7 +141,7 @@ class PlaceSearchAutocomplete extends React.Component {
                 results: [],
                 loading: false,
               });
-              this.reduxHandler(type, item.PlaceName);
+              this.reduxHandler(type, item.PlaceId);
             }}
           >
             <div
@@ -193,7 +195,7 @@ class PlaceSearchAutocomplete extends React.Component {
         loading: false,
         message: "",
       });
-      this.reduxHandler(type, resultsCopy[cursor].PlaceName);
+      this.reduxHandler(type, resultsCopy[cursor].PlaceId);
     }
   }
 

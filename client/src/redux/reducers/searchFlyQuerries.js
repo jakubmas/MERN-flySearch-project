@@ -3,6 +3,7 @@ import {
   SET_ARRIVAL,
   SET_DEPARTURE_DATE,
   SET_ARRIVAL_DATE,
+  SET_SESSION_KEY,
 } from "../actions/types";
 
 const dateToday = () => {
@@ -17,11 +18,12 @@ const initialState = {
   arrival: "",
   departureDate: dateToday(),
   arrivalDate: "",
+  sessionKey: "",
 };
 
 export default function(state = initialState, action) {
   const {type, payload} = action;
-  const {departure, departueDate} = state;
+  const {departure} = state;
   switch (type) {
     case SET_DEPARTURE:
       return {...state, departure: payload.departure};
@@ -29,7 +31,7 @@ export default function(state = initialState, action) {
       if (departure !== payload.arrival) {
         return {...state, arrival: payload.arrival};
       } else {
-        console.log("TODO: validation");
+        // TODO: validation"
         return {...state};
       }
     case SET_DEPARTURE_DATE:
@@ -37,6 +39,8 @@ export default function(state = initialState, action) {
     case SET_ARRIVAL_DATE:
       // todo work on departureDate it returns invalid date
       return {...state, arrivalDate: payload.arrivalDate};
+    case SET_SESSION_KEY:
+      return {...state, sessionKey: payload.sessionKey};
     default:
       return state;
   }
