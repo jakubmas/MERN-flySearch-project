@@ -15,7 +15,9 @@ router.get("/:placeName", async (req, res) => {
     .header("X-RapidAPI-Host", config.get("X-RapidAPI-Host"))
     .header("X-RapidAPI-Key", config.get("X-RapidAPI-Key"))
     .end(function(result) {
-      const resultBody = result.body.Places;
+      const resultBody = result.body.Places.filter(item => {
+        return item.PlaceName !== item.CountryName;
+      });
       res.json({resultBody});
     });
 });
@@ -26,14 +28,14 @@ router.get("/:placeName", async (req, res) => {
 
 router.post(
   "/:originPlace/:destinationPlace/:outboundDate/:inboundDate",
-  async (req, res) => {
+  (req, res) => {
     const originPlace = req.params.originPlace;
     const destinationPlace = req.params.destinationPlace;
     const outboundDate = req.params.outboundDate;
     const inboundDate = req.params.inboundDate;
     console.log("eeeee", req.params);
     try {
-      await unirest
+      unirest
         .post(
           "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/pricing/v1.0",
         )
@@ -55,12 +57,21 @@ router.post(
         .send(`outboundDate=${outboundDate}`)
         .send("adults=1")
         .end(function(result) {
-          const splitHeader = result.headers.location.split("/");
-          const key = splitHeader[splitHeader.length - 1];
-          res.json({key});
+          console.log("post kurwa jegio mać, result.headers", result.headers);
+          if (!result.headers.location) {
+            res.json({msg: "error"});
+          } else {
+            console.log("result.headers", result.headers.location);
+            const splitHeader = result.headers.location.split("/");
+            console.log("splitHeader", splitHeader);
+            const key = splitHeader[splitHeader.length - 1];
+            console.log("key to tu? niemozliwe", key);
+            res.json({key});
+          }
         });
     } catch (error) {
       console.error(error.message);
+      console.log("CO SIE DZIEJE", error);
     }
   },
 );
@@ -81,9 +92,15 @@ router.get("/key/:key", async (req, res) => {
     )
     .header("X-RapidAPI-Key", config.get("X-RapidAPI-Key"))
     .end(function(result) {
-      console.log(result.body);
+      // console.log(result.body);
       const travelData = result.body;
-      res.json({travelData});
+      console.log("resbody?", travelData);
+      console.log("JAAAAK?", travelData.Itineraries);
+      if (travelData.ValidationErrors) {
+        console.log("TODO: eeeerrrrroooooorrrr", travelData.ValidationError);
+      } else {
+        res.json({travelData});
+      }
     });
 });
 

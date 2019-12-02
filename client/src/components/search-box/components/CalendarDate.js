@@ -11,6 +11,8 @@ import {
 import Calendar from "react-calendar";
 import moment from "moment";
 
+import dateToday from "../../../util/dateToday";
+
 class CalendarDate extends React.Component {
   static propTypes = {
     dateLabel: PropTypes.string.isRequired,
@@ -25,15 +27,9 @@ class CalendarDate extends React.Component {
     const {date} = this.state;
     const {dateLabel} = this.props;
 
-    const today = new Date();
-    const dateToday =
-      today.getFullYear() +
-      "-" +
-      (today.getMonth() + 1) +
-      "-" +
-      today.getDate();
+    const today = dateToday();
     if (date === "") {
-      this.setState({date: dateToday});
+      this.setState({date: today});
     }
     if (dateLabel === "To") {
       this.setState({date: ""});
@@ -59,17 +55,14 @@ class CalendarDate extends React.Component {
     const {type, setDepartureDate, setArrivalDate} = this.props;
     const dateTime = moment(date).toObject();
 
-    const validation = value => {};
-
     const day = dateTime.date.toString();
     const month = (dateTime.months + 1).toString();
+
     const dateFormated = `${dateTime.years}-${
       month.length <= 1 ? "0" + month : month
     }-${day.length <= 1 ? "0" + day : day}`;
 
-    console.log("dateFormated", dateFormated);
     this.setState({date: dateFormated});
-    console.log("state", this.state);
     switch (type) {
       case "from":
         return setDepartureDate(dateFormated);

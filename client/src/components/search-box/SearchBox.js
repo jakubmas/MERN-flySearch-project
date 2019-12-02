@@ -4,18 +4,23 @@ import {connect} from "react-redux";
 //components
 import PlaceSearchAutocomplete from "./components/PlaceSearchAutocomplete";
 import CalendarDate from "./components/CalendarDate";
+import SearchResults from "./components/SearchResults";
 //redux
 import {setSessionKey} from "../../redux/actions/searchFlyQuerries";
 
 class SearchBox extends React.Component {
   state = {
-    travelResults: [],
+    travelResults: {travelData: {Agents: []}},
   };
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     const {sessionKey} = this.props;
 
     if (sessionKey !== prevProps.sessionKey) {
       this.getDataResults(sessionKey);
+    }
+
+    if (this.state.travelResults !== prevState.travelResults) {
+      this.renderResults();
     }
   }
 
@@ -32,6 +37,13 @@ class SearchBox extends React.Component {
       },
     };
     const {departure, arrival, departureDate, arrivalDate} = this.props;
+    console.log(
+      "departure, arrival, departureDate, arrivalDate",
+      departure,
+      arrival,
+      departureDate,
+      arrivalDate,
+    );
     const body = JSON.stringify({
       departure,
       arrival,
@@ -43,10 +55,23 @@ class SearchBox extends React.Component {
       body,
       config,
     );
-    const key = await res.data.key;
-    setSessionKey(key);
+    console.log("res.data", res.data);
+    if (res.data.msg === "error") {
+      console.log("tutaj wstawimy alert o errrorku");
+    } else {
+      const key = await res.data.key;
+      console.log("yyyyyyyy key", key);
+      setSessionKey(key);
+    }
   };
+
+  renderResults = () => {
+    const {travelResults} = this.state;
+    return <SearchResults results={travelResults} />;
+  };
+
   render() {
+    const {travelResults} = this.state;
     return (
       <div>
         <div style={{display: "flex"}}>
@@ -69,6 +94,7 @@ class SearchBox extends React.Component {
         <button onClick={this.searchFlightsPostAxiosHandler}>
           SEARCH FLIGHTS
         </button>
+        {travelResults.travelData.Agents.length > 0 && this.renderResults()}
       </div>
     );
   }

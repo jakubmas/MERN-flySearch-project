@@ -19,6 +19,6 @@ export const setArrivalDate = arrivalDate => {
   return {type: SET_ARRIVAL_DATE, payload: {arrivalDate}};
 };
 export const setSessionKey = sessionKey => {
-  console.log("sessionKey", sessionKey);
+  console.log("sessionKey z reduxa", sessionKey);
   return {type: SET_SESSION_KEY, payload: {sessionKey}};
 };

@@ -5,13 +5,7 @@ import {
   SET_ARRIVAL_DATE,
   SET_SESSION_KEY,
 } from "../actions/types";
-
-const dateToday = () => {
-  const today = new Date();
-  const dateToday =
-    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-  return dateToday;
-};
+import dateToday from "../../util/dateToday";
 
 const initialState = {
   departure: "",
