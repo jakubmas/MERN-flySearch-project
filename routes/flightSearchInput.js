@@ -82,26 +82,30 @@ router.post(
 router.get("/key/:key", async (req, res) => {
   const key = req.params.key;
   console.log("key", key);
-  unirest
-    .get(
-      `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/pricing/uk2/v1.0/${key}?pageIndex=0&pageSize=10`,
-    )
-    .header(
-      "X-RapidAPI-Host",
-      "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-    )
-    .header("X-RapidAPI-Key", config.get("X-RapidAPI-Key"))
-    .end(function(result) {
-      // console.log(result.body);
-      const travelData = result.body;
-      console.log("resbody?", travelData);
-      console.log("JAAAAK?", travelData.Itineraries);
-      if (travelData.ValidationErrors) {
-        console.log("TODO: eeeerrrrroooooorrrr", travelData.ValidationError);
-      } else {
-        res.json({travelData});
-      }
-    });
+  try {
+    await unirest
+      .get(
+        `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/pricing/uk2/v1.0/${key}?sortOrder=asc`,
+      )
+      .header(
+        "X-RapidAPI-Host",
+        "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+      )
+      .header("X-RapidAPI-Key", config.get("X-RapidAPI-Key"))
+      .end(function(result) {
+        // console.log(result.body);
+        const travelData = result.body;
+        console.log("resbody?", travelData);
+        console.log("JAAAAK?", travelData.Itineraries);
+        if (travelData.ValidationErrors) {
+          console.log("TODO: eeeerrrrroooooorrrr", travelData.ValidationError);
+        } else {
+          return res.json({travelData});
+        }
+      });
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 module.exports = router;

@@ -1,8 +1,14 @@
 import React, {Component} from "react";
+import uuid from "uuid";
 import Popup from "reactjs-popup";
 import PropTypes from "prop-types";
+import ResultBlock from "./ResultBlock";
 
 export default class Itineraries extends Component {
+  state = {
+    popup: false,
+  };
+
   static propTypes = {
     linkToPayments: PropTypes.array.isRequired,
     arrivalOutbound: PropTypes.string.isRequired,
@@ -22,34 +28,6 @@ export default class Itineraries extends Component {
     flightNumbersInbound: PropTypes.array.isRequired,
     flightNumbersOutbound: PropTypes.array.isRequired,
   };
-  componentDidMount() {
-    const {
-      linkToPayments,
-      arrivalOutbound,
-      departureOutbound,
-      durationOutbound,
-      destinationOutbound,
-      originOutbound,
-      arrivalInbound,
-      departureInbound,
-      durationInbound,
-      destinationInbound,
-      originInbound,
-      carriers,
-      currencies,
-      places,
-      agents,
-      flightNumbersInbound,
-      flightNumbersOutbound,
-    } = this.props;
-    console.log("this.props ITINERARIES", this.props);
-    //outbound wychodzący
-
-    // flightNumbersOutbound.filter(flight =>
-    //   console.log("eelkop", flight.CarrierId === agents.map(agent => agent.Id)),
-    // );
-    console.log(this.getCarrierImg(0, "inbound"));
-  }
 
   getCarrierImg = (index, type) => {
     const {carriers, flightNumbersInbound, flightNumbersOutbound} = this.props;
@@ -66,7 +44,7 @@ export default class Itineraries extends Component {
     }
   };
 
-  getPlace = type => {
+  getPlace = (type, val) => {
     const {
       places,
       originOutbound,
@@ -74,10 +52,6 @@ export default class Itineraries extends Component {
       destinationInbound,
       destinationOutbound,
     } = this.props;
-    console.log(
-      "no i co?",
-      places.filter(place => place.Id === originInbound),
-    );
 
     switch (type) {
       case "originInbound":
@@ -88,6 +62,10 @@ export default class Itineraries extends Component {
         return places.filter(place => place.Id === originOutbound);
       case "destinationOutbound":
         return places.filter(place => place.Id === destinationOutbound);
+      case "originStation":
+        return places.filter(place => place.Id === val);
+      case "destinationStation":
+        return places.filter(place => place.Id === val);
     }
   };
 
@@ -97,64 +75,118 @@ export default class Itineraries extends Component {
     return hours + ":" + minutes;
   };
 
-  popupHandler = () => {
-    console.log("elko");
-    return (
-      <Popup trigger={<button> Trigger</button>} position="right center">
-        <div>Popup content here !!</div>
-      </Popup>
-    );
+  getAgentImg = () => {
+    const {agents, linkToPayments} = this.props;
+    return agents.filter(
+      agent =>
+        agent.Id ===
+        linkToPayments.map(agentId => agentId.Agents.map(el => el)[0])[0],
+    )[0].ImageUrl;
   };
 
+  getSegments = type => {
+    const {segmentIdsOutbound, segmentIdsInbound, segments} = this.props;
+    switch (type) {
+      case "outbound":
+        return segmentIdsOutbound.map(index => segments[index]);
+      case "inbound":
+        return segmentIdsInbound.map(index => segments[index]);
+    }
+  };
   render() {
     const {
       linkToPayments,
       arrivalOutbound,
       departureOutbound,
       durationOutbound,
-      destinationOutbound,
-      originOutbound,
       arrivalInbound,
       departureInbound,
       durationInbound,
-      destinationInbound,
-      originInbound,
-      carriers,
       currencies,
-      places,
-      agents,
-      flightNumbersInbound,
-      flightNumbersOutbound,
+      segmentIdsOutbound,
+      segmentIdsInbound,
     } = this.props;
     return (
-      <div>
-        <div style={{display: "flex", flexDirection: "row", width: "100%"}}>
-          <div>
-            <img
-              src={this.getCarrierImg(0, "inbound")[0].ImageUrl}
-              alt={this.getCarrierImg(0, "inbound")[0].Name}
-            />
-          </div>
-          <div className="container from to">
-            <div style={{display: "flex", flexDirection: "row"}}>
-              <div className="from">
-                <h4>From:</h4>
-                <p>{this.getPlace("originOutbound")[0].Name}</p>
-                <p>Departure: {departureOutbound}</p>
-              </div>
-              <div className="durationOutbound">
-                <p>{this.calculateDuration(durationOutbound)}</p>
-              </div>
-              <div className="to">
-                <h4>To:</h4>
-                <p>{this.getPlace("destinationOutbound")[0].Name}</p>
-                <p>Departure: {arrivalOutbound}</p>
-              </div>
+      <div style={{display: "flex", flexDirection: "row", width: "100%"}}>
+        <ResultBlock
+          imgSrc={this.getCarrierImg(0, "outbound")[0].ImageUrl}
+          imgAlt={this.getCarrierImg(0, "outbound")[0].Name}
+          departureName={this.getPlace("originOutbound")[0].Name}
+          departureDate={departureOutbound}
+          duration={this.calculateDuration(durationOutbound)}
+          destination={this.getPlace("destinationOutbound")[0].Name}
+          arrivalDate={arrivalOutbound}
+        />
+
+        {segmentIdsOutbound.length > 0 && (
+          <Popup trigger={<button> Details</button>} position="right center">
+            <div>
+              <p>{segmentIdsOutbound.length} stops</p>
+              {this.getSegments("outbound").map(el => {
+                return (
+                  <div key={uuid.v4()}>
+                    <h5>
+                      stop:
+                      {this.getPlace("originStation", el.OriginStation)[0].Name}
+                    </h5>
+                    <p>Arrival {el.ArrivalDateTime}</p>
+                    <p>Departure {el.DepartureDateTime}</p>
+                  </div>
+                );
+              })}
             </div>
-          </div>
-          <div className="payment">
-            <button onClick={() => this.popupHandler()}>Buy</button>
-          </div>
+          </Popup>
+        )}
+
+        <ResultBlock
+          imgSrc={this.getCarrierImg(0, "inbound")[0].ImageUrl}
+          imgAlt={this.getCarrierImg(0, "inbound")[0].Name}
+          departureName={this.getPlace("originInbound")[0].Name}
+          departureDate={departureInbound}
+          duration={this.calculateDuration(durationInbound)}
+          destination={this.getPlace("destinationInbound")[0].Name}
+          arrivalDate={arrivalInbound}
+        />
+
+        {segmentIdsOutbound.length > 0 && (
+          <Popup trigger={<button> Details</button>} position="right center">
+            <div>
+              <p>{segmentIdsInbound.length} stops</p>
+              {this.getSegments("inbound").map(el => {
+                return (
+                  <div key={uuid.v4()}>
+                    <h5>
+                      stop:
+                      {this.getPlace("originStation", el.OriginStation)[0].Name}
+                    </h5>
+                    <p>Arrival {el.ArrivalDateTime}</p>
+                    <p>Departure {el.DepartureDateTime}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </Popup>
+        )}
+
+        <div className="payment">
+          <p>Price: {linkToPayments.map(price => price.Price)}</p>
+          <Popup trigger={<button> Pay</button>} position="left center">
+            <div>
+              {linkToPayments.map(link => {
+                return (
+                  <div key={uuid.v4()}>
+                    <img src={this.getAgentImg()} alt="" />
+                    <p>
+                      price: {link.Price} {currencies[0].Symbol}
+                    </p>
+                    <button>
+                      <a href={link.DeeplinkUrl}>Pay</a>
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </Popup>
         </div>
       </div>
     );

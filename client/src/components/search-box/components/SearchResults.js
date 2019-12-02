@@ -18,13 +18,14 @@ class SearchResults extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.results !== this.props.results) {
+      console.log("this.props", this.props.results);
       this.setState({loaded: true});
     }
   }
 
   renderItineraries = () => {
     const {travelData} = this.props.results;
-
+    console.log("travelData", travelData);
     const getPriceAndLink = travelData.Itineraries.map(el => {
       return {
         price: el.PricingOptions[0].Price,
@@ -44,6 +45,7 @@ class SearchResults extends React.Component {
         origin: data.OriginStation,
         duration: data.Duration,
         flightNumbers: data.FlightNumbers,
+        segmentIds: data.SegmentIds,
       };
     });
     const getDetailsInbound = getPriceAndLink.map(element => {
@@ -57,11 +59,11 @@ class SearchResults extends React.Component {
         origin: data.OriginStation,
         duration: data.Duration,
         flightNumbers: data.FlightNumbers,
+        segmentIds: data.SegmentIds,
       };
     });
 
     return travelData.Itineraries.map(element => {
-      // console.log("element", element);
       return (
         <Itineraries
           key={uuid.v4()}
@@ -120,13 +122,26 @@ class SearchResults extends React.Component {
               el => el.idOutbound === element.OutboundLegId,
             ).flightNumbers
           }
+          segmentIdsOutbound={
+            getDetailsOutbound.find(
+              el => el.idOutbound === element.OutboundLegId,
+            ).segmentIds
+          }
+          segmentIdsInbound={
+            getDetailsInbound.find(el => el.idInbound === element.InboundLegId)
+              .segmentIds
+          }
           carriers={travelData.Carriers}
           currencies={travelData.Currencies}
           places={travelData.Places}
           agents={travelData.Agents}
+          segments={travelData.Segments}
         />
       );
     });
+  };
+  paginationHandler = () => {
+    console.log("ellkp");
   };
 
   render() {
@@ -134,7 +149,9 @@ class SearchResults extends React.Component {
       <div>
         <h1>results: </h1>
         {this.state.loaded ? (
-          this.renderItineraries()
+          <>
+            {this.renderItineraries()} {this.paginationHandler()}
+          </>
         ) : (
           <p>Look for your flights</p>
         )}
