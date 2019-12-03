@@ -33,7 +33,7 @@ class SearchBox extends React.Component {
 
   getDataResults = async sessionKey => {
     try {
-      const res = await axios.get(`/api/key/${sessionKey}`);
+      const res = await axios.get(`/api/flight/key/${sessionKey}`);
       this.setState({loading: true});
       if (!res.data.travelData && res.data.msg.ValidationErrors) {
         setTimeout(() => this.getDataResults(sessionKey), 5000);
@@ -64,7 +64,7 @@ class SearchBox extends React.Component {
       arrivalDate,
     });
     const res = await axios.post(
-      `/api/${departure}/${arrival}/${departureDate}/${arrivalDate}`,
+      `/api/flight/${departure}/${arrival}/${departureDate}/${arrivalDate}`,
       body,
       config,
     );

@@ -54,7 +54,7 @@ class PlaceSearchAutocomplete extends React.Component {
 
   // fetch data from API
   fetchSearchResult = async query => {
-    const searchUrl = `/api/${query}`;
+    const searchUrl = `/api/flight/${query}`;
 
     if (this.cancel) {
       this.cancel.cancel();
