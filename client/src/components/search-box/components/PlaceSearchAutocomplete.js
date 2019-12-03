@@ -115,7 +115,7 @@ class PlaceSearchAutocomplete extends React.Component {
       return null;
     }
     return (
-      <ul>
+      <ul style={{width: "300px", position: "absolute"}}>
         {results.map(item => (
           <li
             className={`list-item ${

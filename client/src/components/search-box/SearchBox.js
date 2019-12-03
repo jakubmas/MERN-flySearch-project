@@ -70,7 +70,7 @@ class SearchBox extends React.Component {
     );
     if (res.data.msg === "error") {
       console.log("ERRROR", res.data);
-      this.searchFlightsPostAxiosHandler();
+      // this.searchFlightsPostAxiosHandler();
     } else {
       const key = res.data.key;
       setSessionKey(key);
@@ -88,6 +88,7 @@ class SearchBox extends React.Component {
 
   render() {
     const {travelResults, loading} = this.state;
+    const {Itineraries, Agents} = travelResults.travelData;
     return (
       <div>
         <div style={{display: "flex"}}>
@@ -116,12 +117,12 @@ class SearchBox extends React.Component {
           SEARCH FLIGHTS
         </button>
         {console.log("travelResults", travelResults)}
-        {travelResults.travelData.Itineraries.length > 0 &&
-          this.renderResults()}
-        {travelResults.travelData.Agents.length > 0 &&
-        travelResults.travelData.Itineraries.length === 0 ? (
+        {Itineraries.length > 0 && this.renderResults()}
+        {Agents.length > 0 && Itineraries.length === 0 ? (
           <h1>Seems that there are no filghts available</h1>
-        ) : null}
+        ) : Itineraries.length > 0 ? null : (
+          <h1>Where're you going?</h1>
+        )}
       </div>
     );
   }
