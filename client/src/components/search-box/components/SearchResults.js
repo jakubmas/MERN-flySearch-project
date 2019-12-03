@@ -26,6 +26,9 @@ class SearchResults extends React.Component {
   renderItineraries = () => {
     const {travelData} = this.props.results;
     console.log("travelData", travelData);
+    if (travelData.Status === "UpdatesPending") {
+      console.log("eeeelko updates");
+    }
     const getPriceAndLink = travelData.Itineraries.map(el => {
       return {
         price: el.PricingOptions[0].Price,
@@ -140,18 +143,13 @@ class SearchResults extends React.Component {
       );
     });
   };
-  paginationHandler = () => {
-    console.log("ellkp");
-  };
 
   render() {
     return (
       <div>
         <h1>results: </h1>
         {this.state.loaded ? (
-          <>
-            {this.renderItineraries()} {this.paginationHandler()}
-          </>
+          <>{this.renderItineraries()}</>
         ) : (
           <p>Look for your flights</p>
         )}

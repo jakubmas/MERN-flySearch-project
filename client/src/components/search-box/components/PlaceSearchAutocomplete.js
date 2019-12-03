@@ -53,7 +53,7 @@ class PlaceSearchAutocomplete extends React.Component {
   };
 
   // fetch data from API
-  fetchSearchResult = query => {
+  fetchSearchResult = async query => {
     const searchUrl = `/api/${query}`;
 
     if (this.cancel) {
@@ -61,7 +61,7 @@ class PlaceSearchAutocomplete extends React.Component {
     }
     this.cancel = axios.CancelToken.source();
 
-    axios
+    await axios
       .get(searchUrl, {
         cancelToken: this.cancel.token,
       })

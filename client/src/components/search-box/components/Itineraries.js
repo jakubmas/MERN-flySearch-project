@@ -169,7 +169,7 @@ export default class Itineraries extends Component {
         )}
 
         <div className="payment">
-          <p>Price: {linkToPayments.map(price => price.Price)}</p>
+          <p>Price:{linkToPayments[0].Price}</p>
           <Popup trigger={<button> Pay</button>} position="left center">
             <div>
               {linkToPayments.map(link => {

@@ -7,10 +7,13 @@ import CalendarDate from "./components/CalendarDate";
 import SearchResults from "./components/SearchResults";
 //redux
 import {setSessionKey} from "../../redux/actions/searchFlyQuerries";
+//loader
+import Loader from "../layout/ajax-loader.gif";
 
 class SearchBox extends React.Component {
   state = {
-    travelResults: {travelData: {Agents: []}},
+    travelResults: {travelData: {Itineraries: [], Agents: []}},
+    loading: false,
   };
   componentDidUpdate(prevProps, prevState) {
     const {sessionKey} = this.props;
@@ -24,9 +27,26 @@ class SearchBox extends React.Component {
     }
   }
 
+  timeout = async ms => {
+    return await new Promise(resolve => setTimeout(resolve, ms));
+  };
+
   getDataResults = async sessionKey => {
-    const res = await axios.get(`/api/key/${sessionKey}`);
-    this.setState({travelResults: res.data});
+    try {
+      const res = await axios.get(`/api/key/${sessionKey}`);
+      this.setState({loading: true});
+      if (!res.data.travelData && res.data.msg.ValidationErrors) {
+        setTimeout(() => this.getDataResults(sessionKey), 5000);
+      }
+      if (res.data.travelData.Status === "UpdatesPending" && !res.data.msg) {
+        setTimeout(() => this.getDataResults(sessionKey), 2000);
+      } else {
+        this.setState({loading: false});
+        await this.setState({travelResults: res.data});
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   searchFlightsPostAxiosHandler = async () => {
@@ -37,13 +57,6 @@ class SearchBox extends React.Component {
       },
     };
     const {departure, arrival, departureDate, arrivalDate} = this.props;
-    console.log(
-      "departure, arrival, departureDate, arrivalDate",
-      departure,
-      arrival,
-      departureDate,
-      arrivalDate,
-    );
     const body = JSON.stringify({
       departure,
       arrival,
@@ -55,23 +68,26 @@ class SearchBox extends React.Component {
       body,
       config,
     );
-    console.log("res.data", res.data);
     if (res.data.msg === "error") {
-      console.log("tutaj wstawimy alert o errrorku");
+      console.log("ERRROR", res.data);
+      this.searchFlightsPostAxiosHandler();
     } else {
-      const key = await res.data.key;
-      console.log("yyyyyyyy key", key);
+      const key = res.data.key;
       setSessionKey(key);
     }
   };
 
   renderResults = () => {
-    const {travelResults} = this.state;
-    return <SearchResults results={travelResults} />;
+    try {
+      const {travelResults} = this.state;
+      return <SearchResults results={travelResults} />;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   render() {
-    const {travelResults} = this.state;
+    const {travelResults, loading} = this.state;
     return (
       <div>
         <div style={{display: "flex"}}>
@@ -90,11 +106,22 @@ class SearchBox extends React.Component {
           <div>
             <CalendarDate dateLabel="To" type="to" />
           </div>
+          <img
+            src={Loader}
+            className={`search-loading ${loading ? "show" : "hide"}`}
+            alt="loader"
+          />
         </div>
         <button onClick={this.searchFlightsPostAxiosHandler}>
           SEARCH FLIGHTS
         </button>
-        {travelResults.travelData.Agents.length > 0 && this.renderResults()}
+        {console.log("travelResults", travelResults)}
+        {travelResults.travelData.Itineraries.length > 0 &&
+          this.renderResults()}
+        {travelResults.travelData.Agents.length > 0 &&
+        travelResults.travelData.Itineraries.length === 0 ? (
+          <h1>Seems that there are no filghts available</h1>
+        ) : null}
       </div>
     );
   }
