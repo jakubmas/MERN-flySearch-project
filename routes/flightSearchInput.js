@@ -27,7 +27,7 @@ router.get("/:placeName", (req, res) => {
 //@access   Public
 
 router.post(
-  "/:originPlace/:destinationPlace/:outboundDate/:inboundDate",
+  "/postflight/:originPlace/:destinationPlace/:outboundDate/:inboundDate",
   async (req, res) => {
     const originPlace = req.params.originPlace;
     const destinationPlace = req.params.destinationPlace;

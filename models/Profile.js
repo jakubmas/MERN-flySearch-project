@@ -46,13 +46,9 @@ const ProfileSchema = new mongoose.Schema({
       price: {
         type: Number,
       },
-      link: [
-        {
-          link: {
-            type: String,
-          },
-        },
-      ],
+      link: {
+        type: [String],
+      },
     },
   ],
   social: {

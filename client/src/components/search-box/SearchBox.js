@@ -27,10 +27,6 @@ class SearchBox extends React.Component {
     }
   }
 
-  timeout = async ms => {
-    return await new Promise(resolve => setTimeout(resolve, ms));
-  };
-
   getDataResults = async sessionKey => {
     try {
       const res = await axios.get(`/api/flight/key/${sessionKey}`);
@@ -39,7 +35,7 @@ class SearchBox extends React.Component {
         setTimeout(() => this.getDataResults(sessionKey), 5000);
       }
       if (res.data.travelData.Status === "UpdatesPending" && !res.data.msg) {
-        setTimeout(() => this.getDataResults(sessionKey), 2000);
+        setTimeout(() => this.getDataResults(sessionKey), 1000);
       } else {
         this.setState({loading: false});
         await this.setState({travelResults: res.data});
@@ -64,7 +60,7 @@ class SearchBox extends React.Component {
       arrivalDate,
     });
     const res = await axios.post(
-      `/api/flight/${departure}/${arrival}/${departureDate}/${arrivalDate}`,
+      `/api/flight/postflight/${departure}/${arrival}/${departureDate}/${arrivalDate}`,
       body,
       config,
     );
