@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import uuid from "uuid";
 import Popup from "reactjs-popup";
 import PropTypes from "prop-types";
-import ResultBlock from "./ResultBlock";
+import ResultBlock from "../ResultBlock";
 
 export default class Itineraries extends Component {
   state = {

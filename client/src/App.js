@@ -4,7 +4,7 @@ import store from "./redux/store";
 
 import "./App.css";
 
-import SearchBox from "./components/search-box/SearchBox";
+import SearchBox from "./components/FlightsSearch";
 
 function App() {
   return (

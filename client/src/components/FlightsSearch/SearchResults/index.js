@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Itineraries from "./Itineraries.js";
+import Itineraries from "../Itineraries";
 import uuid from "uuid";
 class SearchResults extends React.Component {
   state = {

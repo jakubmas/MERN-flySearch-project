@@ -2,13 +2,13 @@ import React from "react";
 import axios from "axios";
 import {connect} from "react-redux";
 //components
-import PlaceSearchAutocomplete from "./components/PlaceSearchAutocomplete";
-import CalendarDate from "./components/CalendarDate";
-import SearchResults from "./components/SearchResults";
+import PlaceSearchAutocomplete from "./PlaceSearchAutocomplete";
+import CalendarDate from "./CalendarDate";
+import SearchResults from "./SearchResults";
 //redux
 import {setSessionKey} from "../../redux/actions/searchFlyQuerries";
 //loader
-import Loader from "../layout/ajax-loader.gif";
+import Loader from "../../layout/ajax-loader.gif";
 
 class SearchBox extends React.Component {
   state = {
