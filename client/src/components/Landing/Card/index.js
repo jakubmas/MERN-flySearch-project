@@ -27,6 +27,9 @@ const Card = props => {
                 <Link to="/register" className="btn btn--white">
                   Register today
                 </Link>
+                <Link to="/login" className="btn btn--white">
+                  Login
+                </Link>
               </div>
             </div>
           </div>

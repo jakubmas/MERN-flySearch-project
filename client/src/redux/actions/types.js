@@ -3,3 +3,8 @@ export const SET_ARRIVAL = "SET_ARRIVAL";
 export const SET_DEPARTURE_DATE = "SET_DEPARTURE_DATE";
 export const SET_ARRIVAL_DATE = "SET_ARRIVAL_DATE";
 export const SET_SESSION_KEY = "SET_SESSION_KEY";
+
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAIL = "LOGIN_FAIL";
+export const USER_LOADED = "USER_LOADED";
+export const AUTH_ERROR = "AUTH_ERROR";

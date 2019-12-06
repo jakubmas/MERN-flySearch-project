@@ -216,6 +216,7 @@ class PlaceSearchAutocomplete extends React.Component {
             type="text"
             value={query}
             name="query"
+            className="form__input"
             placeholder={placeholderName}
             autoComplete="off"
             onChange={this.handleOnInputChange}
