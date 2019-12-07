@@ -33,7 +33,6 @@
         $color-primary-dark,
         $color-secondary-dark
       );
-      background-blend-mode: screen;
     }
   }
 
@@ -47,13 +46,7 @@
   &__picture {
     height: 24rem;
     background-size: cover;
-    background-image: linear-gradient(
-        to right bottom,
-        $color-secondary-light,
-        $color-secondary-dark
-      ),
-      url(../../img/login-palm.jpeg);
-    background-blend-mode: screen;
+    background-image: url(../../img/login-palm.jpeg);
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
   }
 

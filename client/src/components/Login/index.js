@@ -3,7 +3,7 @@ import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {login} from "../../redux/actions/auth";
-
+import Input from "../Input";
 const Login = ({login, isAuthenticated}) => {
   const [formData, setFormData] = useState({
     email: "",
@@ -17,7 +17,6 @@ const Login = ({login, isAuthenticated}) => {
   };
 
   const onSubmit = e => {
-    console.log("login", login);
     console.log("email", email, "password", password);
     e.preventDefault();
     login(email, password);
@@ -42,38 +41,26 @@ const Login = ({login, isAuthenticated}) => {
               <div className="u-center-text u-margin--bottom-medium">
                 <h2 className="heading-secondary">Login</h2>
               </div>
-              <div className="form__group">
-                <input
-                  type="email"
-                  name="email"
-                  className="form__input"
-                  placeholder="Email Address"
-                  id="email-login"
-                  value={email}
-                  onChange={e => onChange(e)}
-                  required
+              <Input
+                value={email}
+                onChangeHandler={onChange}
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                id="email-login"
+                htmlFor="email-login"
                 />
-                <label htmlFor="email-login" className="form__label">
-                  Email addres
-                </label>
-              </div>
-              <div className="form__group">
-                <input
-                  type="password"
-                  name="password"
-                  className="form__input"
-                  placeholder="Password"
-                  id="password-login"
-                  value={password}
-                  onChange={e => onChange(e)}
-                  minLength="6"
-                  required
+              <Input
+                value={password}
+                onChangeHandler={onChange}
+                type="password"
+                name="password"
+                placeholder="Password"
+                id="password-login"
+                htmlFor="password-login"
+                minLength={6}
                 />
-                <label htmlFor="password-login" className="form__label">
-                  Password
-                </label>
                 <input type="submit" className="btn btn--white" value="Login" />
-              </div>
             </form>
           </div>
         </div>

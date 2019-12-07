@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Landing from "./components/Landing";
 import FlightsSearch from "./components/FlightsSearch";
 import Login from "./components/Login";
+import Register from "./components/Register";
 import store from "./redux/store";
 
 import "./sass/main.scss";
@@ -17,6 +18,7 @@ function App() {
         <Switch>
           <Route exact path="/search-flights" component={FlightsSearch} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
         </Switch>
       </Router>
     </Provider>

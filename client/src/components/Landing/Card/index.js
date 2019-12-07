@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-const Card = props => {
+import {logout} from "../../../redux/actions/auth";
+const Card = ({auth: {isAuthenticated, token}, logout}) => {
   return (
     <div className="container-card">
       <div className="card">
@@ -21,17 +23,28 @@ const Card = props => {
         </div>
         <div className="card__side card__side--back">
           <div className="card__cta">
-            <div className="card__register">
-              <p className="card__register-title">Create Your Account</p>
-              <div className="card__register-button">
-                <Link to="/register" className="btn btn--white">
-                  Register today
-                </Link>
-                <Link to="/login" className="btn btn--white">
-                  Login
-                </Link>
+            {!isAuthenticated && !token ? (
+              <div className="card__register">
+                <p className="card__register-title">Create Your Account</p>
+                <div className="card__register-button">
+                  <Link to="/register" className="btn btn--white">
+                    Register today
+                  </Link>
+                  <Link to="/login" className="btn btn--white">
+                    Login
+                  </Link>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="card__register">
+                <p className="card__register-title">Logout</p>
+                <div className="card__register-button">
+                  <Link to="/" className="btn btn--white" onClick={logout}>
+                    Logout
+                  </Link>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -39,6 +52,13 @@ const Card = props => {
   );
 };
 
-Card.propTypes = {};
+Card.propTypes = {
+  logout: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
 
-export default Card;
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {logout})(Card);

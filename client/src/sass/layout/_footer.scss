@@ -1,0 +1,46 @@
+.footer {
+  background-color: $color-sandy-1;
+  padding: 5rem 0;
+  font-size: 1.4rem;
+
+  &__logo-box {
+    width: 12rem;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  &__logo {
+    width: 12rem;
+  }
+
+  &__content-container {
+    padding: 0 10rem 1rem 10rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__list {
+    list-style: none;
+  }
+
+  &__item {
+    display: inline-block;
+
+    &:not(:last-child) {
+      margin-right: 1.5rem;
+    }
+  }
+
+  &__link {
+    &:link,
+    &:visited {
+      color: $color-primary-dark;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    &:hover,
+    &:active {
+      color: $color-secondary-dark;
+    }
+  }
+}
