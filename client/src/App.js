@@ -7,6 +7,8 @@ import FlightsSearch from "./components/FlightsSearch";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Navbar from "./components/Navbar";
+import PrivateRoute from "./components/PrivateRoute";
+
 import store from "./redux/store";
 
 import "./sass/main.scss";
@@ -18,7 +20,11 @@ function App() {
       <Router>
         <Route exact path="/" component={Landing} />
         <Switch>
-          <Route exact path="/search-flights" component={FlightsSearch} />
+          <PrivateRoute
+            exact
+            path="/search-flights"
+            component={FlightsSearch}
+          />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
         </Switch>
