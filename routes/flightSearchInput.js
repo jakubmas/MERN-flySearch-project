@@ -50,7 +50,7 @@ router.post(
         .send("children=0")
         .send("infants=0")
         .send("country=US")
-        .send("currency=PLN")
+        .send("currency=EUR")
         .send("locale=en-US")
         .send(`originPlace=${originPlace}`)
         .send(`destinationPlace=${destinationPlace}`)

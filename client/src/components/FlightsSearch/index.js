@@ -86,39 +86,53 @@ class SearchBox extends React.Component {
     const {travelResults, loading} = this.state;
     const {Itineraries, Agents} = travelResults.travelData;
     return (
-      <div>
-        <div style={{display: "flex"}}>
-          <div>
-            <PlaceSearchAutocomplete
-              placeholderName="Departure"
-              type="departure"
-            />
+      <div
+        className="search-box--container"
+        // style={{display: "flex", flexDirection: "column"}}
+      >
+        <div className="search-box--form">
+          {/*section--register*/}
+
+          <PlaceSearchAutocomplete
+            placeholderName="Departure"
+            destination="departure"
+          />
+
+          <PlaceSearchAutocomplete
+            placeholderName="Arrival"
+            destination="arrival"
+          />
+
+          <CalendarDate dateLabel="From" type="from" />
+
+          <CalendarDate dateLabel="To" type="to" />
+
+          <div className="search-box--button-container">
+            <button
+              onClick={this.searchFlightsPostAxiosHandler}
+              className="button__flight-result"
+            >
+              SEARCH FLIGHTS
+            </button>
           </div>
-          <div>
-            <PlaceSearchAutocomplete placeholderName="Arrival" type="arrival" />
-          </div>
-          <div>
-            <CalendarDate dateLabel="From" type="from" />
-          </div>
-          <div>
-            <CalendarDate dateLabel="To" type="to" />
-          </div>
+        </div>
+        {/* {console.log("travelResults", travelResults)} */}
+        <div
+          className={`search-box--results__${loading ? "loading" : ""}`}
+          style={{flexDirection: "row"}}
+        >
           <img
             src={Loader}
-            className={`search-loading ${loading ? "show" : "hide"}`}
+            className={`search-box--loading__${loading ? "show" : "hide"}`}
             alt="loader"
           />
+          {Itineraries.length > 0 && this.renderResults()}
+          {Agents.length > 0 && Itineraries.length === 0 ? (
+            <h1>Seems that there are no filghts available</h1>
+          ) : Itineraries.length > 0 ? null : (
+            <h1>Where're you going?</h1>
+          )}
         </div>
-        <button onClick={this.searchFlightsPostAxiosHandler}>
-          SEARCH FLIGHTS
-        </button>
-        {console.log("travelResults", travelResults)}
-        {Itineraries.length > 0 && this.renderResults()}
-        {Agents.length > 0 && Itineraries.length === 0 ? (
-          <h1>Seems that there are no filghts available</h1>
-        ) : Itineraries.length > 0 ? null : (
-          <h1>Where're you going?</h1>
-        )}
       </div>
     );
   }

@@ -81,7 +81,7 @@ class CalendarDate extends React.Component {
   };
 
   render() {
-    const {showCalendarDeparture} = this.state;
+    const {showCalendarDeparture, date} = this.state;
     const {dateLabel} = this.props;
     return (
       <div>

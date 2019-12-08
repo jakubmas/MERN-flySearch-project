@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import mainLogo from "../../img/logo-black.png";
+import mainLogo from "../../img/logo.png";
 
 const Footer = props => {
   return (

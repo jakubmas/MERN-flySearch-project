@@ -1,0 +1,56 @@
+.result--container {
+  @include search-result-flex-space-between;
+  flex-direction: row;
+  width: 100%;
+  //   background-color: red;
+  padding: 2rem 4rem;
+  border-bottom: 0.5px solid black;
+}
+
+.result--content {
+  display: flex;
+  &__image {
+    align-self: center;
+    padding-right: 1.5rem;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+
+    &--from {
+      .from--container--departureName {
+        @include search-result-flex-space-between;
+      }
+      .from--container--departureDate {
+        @include search-result-flex-space-between;
+      }
+    }
+    &--duration {
+      @include search-result-flex-space-between;
+    }
+    &--to {
+      .to--container--departureName {
+        @include search-result-flex-space-between;
+      }
+      .to--container--departureDate {
+        @include search-result-flex-space-between;
+      }
+    }
+  }
+}
+
+.contnent-and-button--container {
+  display: flex;
+  flex-direction: column;
+
+  @include search-result-button;
+}
+
+.payment {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  @include search-result-button;
+}

@@ -1,12 +1,10 @@
 import React, {Fragment} from "react";
 import PropTypes from "prop-types";
-import Navigation from "../Navbar";
 import {Link, Redirect} from "react-router-dom";
-import mainLogo from "../../img/logo-white.png";
+import mainLogo from "../../img/logo.png";
 const Header = props => {
   return (
     <Fragment>
-      <Navigation />
       <header className="header">
         <div className="header__logo-box">
           <img src={mainLogo} alt="logo" className="header__logo" />

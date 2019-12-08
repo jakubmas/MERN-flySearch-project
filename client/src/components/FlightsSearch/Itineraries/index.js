@@ -107,70 +107,93 @@ export default class Itineraries extends Component {
       segmentIdsInbound,
     } = this.props;
     return (
-      <div style={{display: "flex", flexDirection: "row", width: "100%"}}>
-        <ResultBlock
-          imgSrc={this.getCarrierImg(0, "outbound")[0].ImageUrl}
-          imgAlt={this.getCarrierImg(0, "outbound")[0].Name}
-          departureName={this.getPlace("originOutbound")[0].Name}
-          departureDate={departureOutbound}
-          duration={this.calculateDuration(durationOutbound)}
-          destination={this.getPlace("destinationOutbound")[0].Name}
-          arrivalDate={arrivalOutbound}
-        />
+      <div className="result--container">
+        <div className="contnent-and-button--container">
+          <ResultBlock
+            imgSrc={this.getCarrierImg(0, "outbound")[0].ImageUrl}
+            imgAlt={this.getCarrierImg(0, "outbound")[0].Name}
+            departureName={this.getPlace("originOutbound")[0].Name}
+            departureDate={departureOutbound}
+            duration={this.calculateDuration(durationOutbound)}
+            destination={this.getPlace("destinationOutbound")[0].Name}
+            arrivalDate={arrivalOutbound}
+          />
 
-        {segmentIdsOutbound.length > 0 && (
-          <Popup trigger={<button> Details</button>} position="right center">
-            <div>
-              <p>{segmentIdsOutbound.length} stops</p>
-              {this.getSegments("outbound").map(el => {
-                return (
-                  <div key={uuid.v4()}>
-                    <h5>
-                      stop:
-                      {this.getPlace("originStation", el.OriginStation)[0].Name}
-                    </h5>
-                    <p>Arrival {el.ArrivalDateTime}</p>
-                    <p>Departure {el.DepartureDateTime}</p>
-                  </div>
-                );
-              })}
-            </div>
-          </Popup>
-        )}
+          {segmentIdsOutbound.length > 0 && (
+            <Popup
+              trigger={
+                <button className="button__flight-result">Details</button>
+              }
+              position="right center"
+            >
+              <div>
+                <p>{segmentIdsOutbound.length} stops</p>
+                {this.getSegments("outbound").map(el => {
+                  return (
+                    <div key={uuid.v4()}>
+                      <h5>
+                        stop:
+                        {
+                          this.getPlace("originStation", el.OriginStation)[0]
+                            .Name
+                        }
+                      </h5>
+                      <p>Arrival {el.ArrivalDateTime}</p>
+                      <p>Departure {el.DepartureDateTime}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </Popup>
+          )}
+        </div>
+        <div className="contnent-and-button--container">
+          <ResultBlock
+            imgSrc={this.getCarrierImg(0, "inbound")[0].ImageUrl}
+            imgAlt={this.getCarrierImg(0, "inbound")[0].Name}
+            departureName={this.getPlace("originInbound")[0].Name}
+            departureDate={departureInbound}
+            duration={this.calculateDuration(durationInbound)}
+            destination={this.getPlace("destinationInbound")[0].Name}
+            arrivalDate={arrivalInbound}
+          />
 
-        <ResultBlock
-          imgSrc={this.getCarrierImg(0, "inbound")[0].ImageUrl}
-          imgAlt={this.getCarrierImg(0, "inbound")[0].Name}
-          departureName={this.getPlace("originInbound")[0].Name}
-          departureDate={departureInbound}
-          duration={this.calculateDuration(durationInbound)}
-          destination={this.getPlace("destinationInbound")[0].Name}
-          arrivalDate={arrivalInbound}
-        />
-
-        {segmentIdsOutbound.length > 0 && (
-          <Popup trigger={<button> Details</button>} position="right center">
-            <div>
-              <p>{segmentIdsInbound.length} stops</p>
-              {this.getSegments("inbound").map(el => {
-                return (
-                  <div key={uuid.v4()}>
-                    <h5>
-                      stop:
-                      {this.getPlace("originStation", el.OriginStation)[0].Name}
-                    </h5>
-                    <p>Arrival {el.ArrivalDateTime}</p>
-                    <p>Departure {el.DepartureDateTime}</p>
-                  </div>
-                );
-              })}
-            </div>
-          </Popup>
-        )}
-
+          {segmentIdsOutbound.length > 0 && (
+            <Popup
+              trigger={
+                <button className="button__flight-resulte btn--animated button__flight-result">
+                  Details
+                </button>
+              }
+              position="right center"
+            >
+              <div>
+                <p>{segmentIdsInbound.length} stops</p>
+                {this.getSegments("inbound").map(el => {
+                  return (
+                    <div key={uuid.v4()}>
+                      <h5>
+                        stop:
+                        {
+                          this.getPlace("originStation", el.OriginStation)[0]
+                            .Name
+                        }
+                      </h5>
+                      <p>Arrival {el.ArrivalDateTime}</p>
+                      <p>Departure {el.DepartureDateTime}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </Popup>
+          )}
+        </div>
         <div className="payment">
-          <p>Price:{linkToPayments[0].Price}</p>
-          <Popup trigger={<button> Pay</button>} position="left center">
+          <p>Price: {linkToPayments[0].Price} &euro;</p>
+          <Popup
+            trigger={<button className="button__flight-result">Pay</button>}
+            position="left center"
+          >
             <div>
               {linkToPayments.map(link => {
                 return (

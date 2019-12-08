@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import PropTypes from "prop-types";
 
 const Navbar = props => {
@@ -10,18 +10,23 @@ const Navbar = props => {
 
   const toggleNavigtionHandler = () => {
     setFormData({toggleNavigation: !toggleNavigation});
-    console.log("this.state", toggleNavigation);
   };
   return (
-    <div className={toggleNavigation ? "navigation" : ""}>
-      <button
-        className="navigation__button"
-        onClick={() => toggleNavigtionHandler()}
+    <div className="navigation">
+      <label
+        htmlFor="navi-toggle"
+        className="navigation__checkbox"
+        onClick={toggleNavigtionHandler}
       >
-        Menu
-      </button>
-      <nav className={toggleNavigation ? "navigation__nav" : ""}>
-        {toggleNavigation ? (
+        <span className="navigation__icon"></span>
+      </label>
+      <div className="navigation__background"></div>
+      {toggleNavigation ? (
+        <nav
+          className={
+            toggleNavigation ? "navigation__nav show" : "navigation__nav toggle"
+          }
+        >
           <ul className="navigation__list">
             <li className="navigation__item">
               <a href="#" className="navigation__link">
@@ -54,56 +59,9 @@ const Navbar = props => {
               </a>
             </li>
           </ul>
-        ) : (
-          ""
-        )}
-      </nav>
+        </nav>
+      ) : null}
     </div>
-    // <div className="navigation">
-    //   <input
-    //     type="checkbox"
-    //     className="navigation__checkbox"
-    //     id="navi-toggle"
-    //   />
-    //   <label htmlFor="navi-toggle" className="navigation__button">
-    //     Menu
-    //   </label>
-    //   <div className="navigation__background">&nbsp;</div>
-    //   <nav className="navigation__nav">
-    //     <ul className="navigation__list">
-    //       <li className="navigation__item">
-    //         <a href="#" className="navigation__link">
-    //           About
-    //         </a>
-    //       </li>
-    //       <li className="navigation__item">
-    //         <a href="#" className="navigation__link">
-    //           FlightBrowser
-    //         </a>
-    //       </li>
-    //       <li className="navigation__item">
-    //         <a href="#" className="navigation__link">
-    //           Register
-    //         </a>
-    //       </li>
-    //       <li className="navigation__item">
-    //         <a href="#" className="navigation__link">
-    //           Your profile
-    //         </a>
-    //       </li>
-    //       <li className="navigation__item">
-    //         <a href="#" className="navigation__link">
-    //           Login
-    //         </a>
-    //       </li>
-    //       <li className="navigation__item">
-    //         <a href="#" className="navigation__link">
-    //           Logout
-    //         </a>
-    //       </li>
-    //     </ul>
-    //   </nav>
-    // </div>
   );
 };
 

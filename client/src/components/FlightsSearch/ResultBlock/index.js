@@ -12,24 +12,32 @@ const ResultBlock = props => {
     arrivalDate,
   } = props;
   return (
-    <div>
-      <div>
-        <img src={imgSrc} alt={imgAlt} />
-      </div>
-      <div>
-        <div style={{display: "flex", flexDirection: "row"}}>
-          <div>
+    <div className="result--content">
+      <img src={imgSrc} alt={imgAlt} className="result--content__image" />
+
+      <div className="result--content__container">
+        <div className="result--content__container--from">
+          <div className="from--container--departureName">
             <h4>From:</h4>
             <p>{departureName}</p>
-            <p>Departure: {departureDate}</p>
           </div>
-          <div>
-            <p>{duration}</p>
+          <div className="from--container--departureDate">
+            <h4>Departure: </h4>
+            <p>{departureDate}</p>
           </div>
-          <div>
+        </div>
+        <div className="result--content__container--duration">
+          <span>Duration:</span>
+          <p>{duration}</p>
+        </div>
+        <div className="result--content__container--to">
+          <div className="to--container--departureName">
             <h4>To:</h4>
             <p>{destination}</p>
-            <p>Departure: {arrivalDate}</p>
+          </div>
+          <div className="to--container--departureDate">
+            <h4>Departure: </h4>
+            <p>{arrivalDate}</p>
           </div>
         </div>
       </div>

@@ -6,6 +6,7 @@ import Landing from "./components/Landing";
 import FlightsSearch from "./components/FlightsSearch";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Navbar from "./components/Navbar";
 import store from "./redux/store";
 
 import "./sass/main.scss";
@@ -13,6 +14,7 @@ import "./sass/main.scss";
 function App() {
   return (
     <Provider store={store}>
+      <Navbar />
       <Router>
         <Route exact path="/" component={Landing} />
         <Switch>

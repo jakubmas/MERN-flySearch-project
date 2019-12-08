@@ -1,0 +1,19 @@
+@mixin search-result-flex-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+@mixin search-result-button {
+  .button__flight-result {
+    align-self: center;
+    padding: 0.5rem 3rem;
+    border-radius: 1rem;
+  }
+  button:focus {
+    outline: 0;
+  }
+
+  button:hover {
+    box-shadow: 0 1rem 2rem rgba($color-black, 0.2);
+  }
+}

@@ -32,8 +32,6 @@ export const loadUser = () => async dispatch => {
 
 //Login User
 export const login = (email, password) => async dispatch => {
-  console.log("email", email);
-  console.log("password", password);
   const config = {
     headers: {
       "Content-Type": "application/json",

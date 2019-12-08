@@ -11,10 +11,13 @@
 @import "./components/onboarding";
 @import "./components/card";
 @import "./components/form";
+@import "./components/input-atocomplete";
+@import "./components/flight-result";
 
 @import "./pages/home";
 @import "./pages/login";
 @import "./pages/register";
+@import "./pages/flightSearch";
 @import "./layout/header";
 @import "./layout/footer";
 @import "./layout/navigation";

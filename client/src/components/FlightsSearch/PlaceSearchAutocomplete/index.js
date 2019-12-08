@@ -11,7 +11,7 @@ import axios from "axios";
 import uuid from "uuid";
 import Loader from "../../../layout/ajax-loader.gif";
 
-import "../../style/Search.css";
+// import "../../style/Search.css";
 class PlaceSearchAutocomplete extends React.Component {
   constructor(props) {
     super(props);
@@ -96,9 +96,9 @@ class PlaceSearchAutocomplete extends React.Component {
     }
   };
 
-  reduxHandler = (type, placeId) => {
+  reduxHandler = (destination, placeId) => {
     const {setDeparture, setArrival} = this.props;
-    switch (type) {
+    switch (destination) {
       case "departure":
         return setDeparture(placeId);
       case "arrival":
@@ -110,15 +110,15 @@ class PlaceSearchAutocomplete extends React.Component {
 
   renderSugestions = () => {
     const {results} = this.state;
-    const {type} = this.props;
+    const {destination} = this.props;
     if (results.length === 0) {
       return null;
     }
     return (
-      <ul style={{width: "300px", position: "absolute"}}>
+      <ul className="autocomplete--list">
         {results.map(item => (
           <li
-            className={`list-item ${
+            className={`autocomplete--list__item--${
               this.state.cursor === results.indexOf(item)
                 ? "active"
                 : "inactive"
@@ -141,7 +141,7 @@ class PlaceSearchAutocomplete extends React.Component {
                 results: [],
                 loading: false,
               });
-              this.reduxHandler(type, item.PlaceId);
+              this.reduxHandler(destination, item.PlaceId);
             }}
           >
             <div
@@ -164,7 +164,7 @@ class PlaceSearchAutocomplete extends React.Component {
 
   handleKeyDown(e) {
     const {cursor, results} = this.state;
-    const {type} = this.props;
+    const {destination} = this.props;
     const {keyCode} = e;
     // arrow up/down button should select next/previous list element
     if (keyCode === 38) {
@@ -195,13 +195,13 @@ class PlaceSearchAutocomplete extends React.Component {
         loading: false,
         message: "",
       });
-      this.reduxHandler(type, resultsCopy[cursor].PlaceId);
+      this.reduxHandler(destination, resultsCopy[cursor].PlaceId);
     }
   }
 
   render() {
     const {query, loading, message} = this.state;
-    const {placeholderName} = this.props;
+    const {placeholderName, destination} = this.props;
     return (
       <div className="container" style={{width: "300px"}}>
         <div className="autoCompleteText">
@@ -211,22 +211,29 @@ class PlaceSearchAutocomplete extends React.Component {
             className={`search-loading ${loading ? "show" : "hide"}`}
             alt="loader"
           />
+          <div className="form__group">
+            <input
+              type="text"
+              name={destination}
+              className="form__input"
+              placeholder={placeholderName}
+              id={destination}
+              value={query}
+              onChange={this.handleOnInputChange}
+              autoComplete="off"
+              onKeyDown={e => this.handleKeyDown(e)}
+            />
+            <label htmlFor="" className="form__label">
+              {placeholderName}
+            </label>
+          </div>
 
-          <input
-            type="text"
-            value={query}
-            name="query"
-            className="form__input"
-            placeholder={placeholderName}
-            autoComplete="off"
-            onChange={this.handleOnInputChange}
-            onKeyDown={e => this.handleKeyDown(e)}
-          />
-
-          <div>{this.renderSugestions()}</div>
+          <div className="autocomplete--results">{this.renderSugestions()}</div>
         </div>
         {/* Error message */}
-        {message && <p className="message">{message}</p>}
+        <p className={`message${message ? "--visible" : "--hidden"}`}>
+          {message}
+        </p>
       </div>
     );
   }

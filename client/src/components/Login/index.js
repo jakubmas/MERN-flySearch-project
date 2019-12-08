@@ -17,7 +17,6 @@ const Login = ({login, isAuthenticated}) => {
   };
 
   const onSubmit = e => {
-    console.log("email", email, "password", password);
     e.preventDefault();
     login(email, password);
   };
@@ -49,7 +48,7 @@ const Login = ({login, isAuthenticated}) => {
                 placeholder="Email Address"
                 id="email-login"
                 htmlFor="email-login"
-                />
+              />
               <Input
                 value={password}
                 onChangeHandler={onChange}
@@ -59,8 +58,8 @@ const Login = ({login, isAuthenticated}) => {
                 id="password-login"
                 htmlFor="password-login"
                 minLength={6}
-                />
-                <input type="submit" className="btn btn--white" value="Login" />
+              />
+              <input type="submit" className="btn btn--white" value="Login" />
             </form>
           </div>
         </div>

@@ -1,0 +1,45 @@
+.search-box--container {
+  display: flex;
+  font-size: 1.5rem;
+  //   text-align: center;
+  flex-direction: column;
+  padding: 5rem 10rem 0 10rem;
+
+  .search-box--form {
+    display: flex;
+    flex-direction: row;
+    background-image: linear-gradient(
+        to right bottom,
+        $color-secondary-light,
+        $color-secondary-dark
+      ),
+      url(../../img/beach.jpeg);
+    background-blend-mode: screen;
+    background-size: cover;
+    padding: 5rem;
+    border-radius: 1.5rem;
+    justify-content: space-around;
+  }
+
+  .search-box--results {
+    &__loading {
+      width: 100%;
+      height: 100%;
+      background-color: rgba($color-sandy-1, 0.4);
+      //   position: absolute;
+    }
+  }
+
+  .search-box--loading {
+    &__show {
+      display: inline-block;
+    }
+    &__hide {
+      display: none;
+    }
+  }
+  .search-box--button-container {
+    align-self: center;
+  }
+  @include search-result-button;
+}
