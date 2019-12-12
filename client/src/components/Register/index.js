@@ -1,10 +1,12 @@
 import React, {useState} from "react";
 import {connect} from "react-redux";
-import {Link, Redirect} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import {register} from "../../redux/actions/auth";
+import {setAlert} from "../../redux/actions/alert";
 import PropTypes from "prop-types";
 
 import Input from "../Input";
+import Alert from "../Alert";
 
 const Register = ({setAlert, register, isAuthenticated}) => {
   const [formData, setFormData] = useState({
@@ -38,6 +40,9 @@ const Register = ({setAlert, register, isAuthenticated}) => {
     <section className="section--register">
       <div className="register--container">
         <div className="register--main">
+          <div className="alert--container">
+            <Alert />
+          </div>
           <div className="register__form">
             <form
               action=""
@@ -53,12 +58,11 @@ const Register = ({setAlert, register, isAuthenticated}) => {
                 placeholder="Name"
                 id="name-register"
                 htmlFor="name-register"
-                minLength={6}
               />
               <Input
                 value={email}
                 onChangeHandler={onChange}
-                type="email"
+                type="text"
                 name="email"
                 placeholder="Email Address"
                 id="email-login"
@@ -72,7 +76,6 @@ const Register = ({setAlert, register, isAuthenticated}) => {
                 placeholder="Password"
                 id="password-register"
                 htmlFor="password-register"
-                minLength={6}
               />
               <Input
                 value={password2}
@@ -82,13 +85,8 @@ const Register = ({setAlert, register, isAuthenticated}) => {
                 placeholder="Repeat your password"
                 id="password-repeat-register"
                 htmlFor="password-repeat-register"
-                minLength={6}
               />
-              <input
-                type="submit"
-                className="btn btn--white"
-                value="Register"
-              />
+              <input type="submit" className="btn--small" value="Register" />
             </form>
           </div>
         </div>
@@ -100,10 +98,11 @@ const Register = ({setAlert, register, isAuthenticated}) => {
 Register.propTypes = {
   register: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
+  setAlert: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, {register})(Register);
+export default connect(mapStateToProps, {register, setAlert})(Register);

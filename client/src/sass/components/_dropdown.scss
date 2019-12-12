@@ -1,0 +1,28 @@
+.form-group__dropdown {
+  padding: 1rem 0 3rem 0;
+  .form-text__dropdown {
+    font-size: 1.4rem;
+    font-weight: 400;
+    padding-bottom: 1rem;
+  }
+  .form-group__select {
+    width: auto;
+    border-radius: 2px;
+    select {
+      cursor: pointer;
+      font-weight: 500;
+      padding: 0.8rem 2.4rem 0.8rem 1rem;
+      border: none;
+      @include font-input;
+      background-color: rgba($color-white, 0.5);
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      &:active,
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }
+}

@@ -15,7 +15,6 @@ app.use("/api/flight", require("./routes/flightSearchInput"));
 app.use("/api/users", require("./routes/users"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/profile", require("./routes/profile"));
-
 const PORT = 666;
 
 app.listen(PORT, () => {

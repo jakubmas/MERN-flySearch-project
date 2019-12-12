@@ -8,16 +8,23 @@
 @import "./base/utilities";
 
 @import "./components/button";
+@import "./components/button-small";
 @import "./components/onboarding";
 @import "./components/card";
 @import "./components/form";
+@import "./components/profile-form";
 @import "./components/input-atocomplete";
+@import "./components/dropdown";
 @import "./components/flight-result";
+@import "./components/alert";
 
 @import "./pages/home";
 @import "./pages/login";
 @import "./pages/register";
 @import "./pages/flightSearch";
+@import "./pages/profile";
+@import "./pages/profile-update";
+
 @import "./layout/header";
 @import "./layout/footer";
 @import "./layout/navigation";

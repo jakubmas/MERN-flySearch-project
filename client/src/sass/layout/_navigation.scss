@@ -1,6 +1,4 @@
 .navigation {
-  // width: 30rem;
-  // height: 45rem;
   top: 6rem;
   right: 6rem;
   position: fixed;
@@ -67,6 +65,9 @@
     transform: translate(-100%, -50%);
     list-style: none;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   &__item {
     margin: 1rem;

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Card from "../Card";
+import FlippingCard from "../FlippingCard";
 
 const About = props => {
   return (
@@ -31,7 +31,7 @@ const About = props => {
               doloremque.
             </p>
           </div>
-          <Card />
+          <FlippingCard />
         </div>
       </section>
     </div>

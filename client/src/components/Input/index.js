@@ -9,7 +9,6 @@ const index = ({
   placeholder,
   id,
   htmlFor,
-  minLength,
 }) => {
   return (
     <div className="form__group">
@@ -21,8 +20,6 @@ const index = ({
         id={id}
         value={value}
         onChange={e => onChangeHandler(e)}
-        minLength={minLength}
-        required
       />
       <label htmlFor={htmlFor} className="form__label">
         {placeholder}
@@ -33,13 +30,12 @@ const index = ({
 
 index.propTypes = {
   onChangeHandler: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   htmlFor: PropTypes.string.isRequired,
-  minLength: PropTypes.number,
 };
 
 export default index;

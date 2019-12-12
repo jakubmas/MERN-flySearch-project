@@ -11,7 +11,6 @@ import axios from "axios";
 import uuid from "uuid";
 import Loader from "../../../layout/ajax-loader.gif";
 
-// import "../../style/Search.css";
 class PlaceSearchAutocomplete extends React.Component {
   constructor(props) {
     super(props);

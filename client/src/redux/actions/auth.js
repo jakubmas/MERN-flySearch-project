@@ -7,8 +7,11 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   LOGOUT,
+  CLEAR_PROFILE,
 } from "./types";
+import {setAlert} from "./alert";
 import setAuthToken from "../../util/setAuthToken";
+import {format} from "path";
 
 //Load User
 export const loadUser = () => async dispatch => {
@@ -18,12 +21,12 @@ export const loadUser = () => async dispatch => {
 
   try {
     const res = await axios.get("/api/auth");
-
     dispatch({
       type: USER_LOADED,
       payload: res.data,
     });
   } catch (err) {
+    console.log("err", err);
     dispatch({
       type: AUTH_ERROR,
     });
@@ -48,10 +51,9 @@ export const login = (email, password) => async dispatch => {
     dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
-
-    // if (errors) {
-    //   errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
-    // }
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+    }
     dispatch({
       type: LOGIN_FAIL,
     });
@@ -69,7 +71,6 @@ export const register = ({name, email, password}) => async dispatch => {
 
   try {
     const res = await axios.post("/api/users", body, config);
-    console.log("res", res);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data,
@@ -78,9 +79,9 @@ export const register = ({name, email, password}) => async dispatch => {
   } catch (err) {
     const errors = err.response.data.errors;
 
-    // if (errors) {
-    //   errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
-    // }
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, "danger", 3000)));
+    }
     dispatch({
       type: REGISTER_FAIL,
     });
@@ -89,5 +90,6 @@ export const register = ({name, email, password}) => async dispatch => {
 
 //Logout / Clear Profile
 export const logout = () => dispatch => {
+  dispatch({type: CLEAR_PROFILE});
   dispatch({type: LOGOUT});
 };

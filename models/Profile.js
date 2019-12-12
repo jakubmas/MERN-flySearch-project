@@ -36,13 +36,6 @@ const ProfileSchema = new mongoose.Schema({
       dateOutbound: {
         type: String,
       },
-      current: {
-        type: Boolean,
-        default: false,
-      },
-      description: {
-        type: String,
-      },
       price: {
         type: Number,
       },

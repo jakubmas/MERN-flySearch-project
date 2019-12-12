@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {logout} from "../../../redux/actions/auth";
-const Card = ({auth: {isAuthenticated, token}, logout}) => {
+const FlippingCard = ({auth: {isAuthenticated, token}, logout}) => {
   return (
     <div className="container-card">
       <div className="card">
@@ -52,7 +52,7 @@ const Card = ({auth: {isAuthenticated, token}, logout}) => {
   );
 };
 
-Card.propTypes = {
+FlippingCard.propTypes = {
   logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
@@ -61,4 +61,4 @@ const mapStateToProps = state => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, {logout})(Card);
+export default connect(mapStateToProps, {logout})(FlippingCard);

@@ -6,7 +6,7 @@ import Footer from "../Footer";
 const Landing = props => {
   return (
     <div>
-      <Header />
+      <Header subtitle="Where do you want to go?" landing={true} />
       <About />
       <Onboarding />
       <Footer />

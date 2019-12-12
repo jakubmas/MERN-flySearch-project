@@ -1,0 +1,25 @@
+.alert {
+  &--container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  display: inline-block;
+  &--danger {
+    @include alert-styling;
+    background-color: rgba($color-red, 0.5);
+  }
+
+  &--success {
+    @include alert-styling;
+    background-color: $color-primary-dark;
+  }
+  &--message {
+    font-size: 1.5rem;
+    color: $color-white;
+    display: inline-block;
+    padding: 3rem;
+  }
+}

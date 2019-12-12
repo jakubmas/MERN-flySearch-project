@@ -5,24 +5,26 @@ const auth = require("../middleware/auth");
 const Profile = require("../models/Profile");
 const User = require("../models/User");
 
-//@route    GET api/profile/me
-//@desc     Get current user profile
-//@access   Private
+// @route    GET api/profile/me
+// @desc     Get current users profile
+// @access   Private
 router.get("/me", auth, async (req, res) => {
   try {
-    const profile = await Profile.findOne({
-      user: req.user.id,
-    }).populate("user", ["name"]);
+    const profile = await Profile.findOne({user: req.user.id}).populate(
+      "user",
+      ["name", "avatar"],
+    );
+
     if (!profile) {
-      res.status(400).json({msg: "There's no profile for this user"});
+      return res.status(400).json({msg: "There is no profile for this user"});
     }
-    res.json({profile});
+
+    res.json(profile);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server error");
+    res.status(500).send("Server Error");
   }
 });
-
 //@route    POST api/profile/
 //@desc     Create or update a user profile
 //@access   Private
@@ -62,7 +64,10 @@ router.post(
     if (status) profileFields.status = status;
     if (bio) profileFields.bio = bio;
     if (skills) {
-      profileFields.skills = skills.split(",").map(skill => skill.trim());
+      profileFields.skills = skills
+        .toString()
+        .split(",")
+        .map(skill => skill.trim());
     }
 
     //Build social object
@@ -73,20 +78,12 @@ router.post(
     if (instagram) profileFields.social.instagram = instagram;
 
     try {
-      let profile = await Profile.findOne({user: req.user.id});
-      if (profile) {
-        //update profile
-        Profile.findOneAndUpdate(
-          {user: req.user.id},
-          {$set: profileFields},
-          {new: true},
-        );
-        return res.json(profile);
-      }
-
-      //create profile
-      profile = new Profile(profileFields);
-      await profile.save();
+      // create new doc if no match is found, otherwise update profile
+      let profile = await Profile.findOneAndUpdate(
+        {user: req.user.id},
+        {$set: profileFields},
+        {new: true, upsert: true},
+      );
       res.json(profile);
     } catch (err) {
       console.error(err.message);

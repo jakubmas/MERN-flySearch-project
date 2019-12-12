@@ -1,7 +1,10 @@
 import React, {Fragment, useState} from "react";
+import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {logout} from "../../redux/actions/auth";
 import PropTypes from "prop-types";
 
-const Navbar = props => {
+const Navbar = ({auth: {isAuthenticated, loading}, logout}) => {
   const [formData, setFormData] = useState({
     toggleNavigation: false,
   });
@@ -11,6 +14,51 @@ const Navbar = props => {
   const toggleNavigtionHandler = () => {
     setFormData({toggleNavigation: !toggleNavigation});
   };
+
+  const authLinks = (
+    <ul className="navigation__list">
+      <li className="navigation__item">
+        <Link to="/" className="navigation__link">
+          Home
+        </Link>
+      </li>
+      <li className="navigation__item">
+        <Link to="/search-flights" className="navigation__link">
+          FlightBrowser
+        </Link>
+      </li>
+      <li className="navigation__item">
+        <Link to="/profile" className="navigation__link">
+          Your profile
+        </Link>
+      </li>
+      <li className="navigation__item">
+        <a onClick={logout} href="" className="navigation__link">
+          Logout
+        </a>
+      </li>
+    </ul>
+  );
+
+  const guestLinks = (
+    <ul className="navigation__list">
+      <li className="navigation__item">
+        <Link to="/" className="navigation__link">
+          Home
+        </Link>
+      </li>
+      <li className="navigation__item">
+        <Link to="/register" className="navigation__link">
+          Register
+        </Link>
+      </li>
+      <li className="navigation__item">
+        <Link to="/login" className="navigation__link">
+          Login
+        </Link>
+      </li>
+    </ul>
+  );
   return (
     <div className="navigation">
       <label
@@ -27,44 +75,22 @@ const Navbar = props => {
             toggleNavigation ? "navigation__nav show" : "navigation__nav toggle"
           }
         >
-          <ul className="navigation__list">
-            <li className="navigation__item">
-              <a href="#" className="navigation__link">
-                About
-              </a>
-            </li>
-            <li className="navigation__item">
-              <a href="#" className="navigation__link">
-                FlightBrowser
-              </a>
-            </li>
-            <li className="navigation__item">
-              <a href="#" className="navigation__link">
-                Register
-              </a>
-            </li>
-            <li className="navigation__item">
-              <a href="#" className="navigation__link">
-                Your profile
-              </a>
-            </li>
-            <li className="navigation__item">
-              <a href="#" className="navigation__link">
-                Login
-              </a>
-            </li>
-            <li className="navigation__item">
-              <a href="#" className="navigation__link">
-                Logout
-              </a>
-            </li>
-          </ul>
+          {/* {!loading && ( */}
+          <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+          {/* )} */}
         </nav>
       ) : null}
     </div>
   );
 };
 
-Navbar.propTypes = {};
+Navbar.propTypes = {
+  logout: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
 
-export default Navbar;
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {logout})(Navbar);

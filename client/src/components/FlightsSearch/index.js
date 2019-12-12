@@ -5,8 +5,10 @@ import {connect} from "react-redux";
 import PlaceSearchAutocomplete from "./PlaceSearchAutocomplete";
 import CalendarDate from "./CalendarDate";
 import SearchResults from "./SearchResults";
+import Alert from "../Alert";
 //redux
 import {setSessionKey} from "../../redux/actions/searchFlyQuerries";
+import {setAlert} from "../../redux/actions/alert";
 //loader
 import Loader from "../../layout/ajax-loader.gif";
 
@@ -46,7 +48,7 @@ class SearchBox extends React.Component {
   };
 
   searchFlightsPostAxiosHandler = async () => {
-    const {setSessionKey} = this.props;
+    const {setSessionKey, setAlert} = this.props;
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -66,7 +68,7 @@ class SearchBox extends React.Component {
     );
     if (res.data.msg === "error") {
       console.log("ERRROR", res.data);
-      // this.searchFlightsPostAxiosHandler();
+      setAlert("Server Error Try Again", "danger", 3000);
     } else {
       const key = res.data.key;
       setSessionKey(key);
@@ -86,20 +88,15 @@ class SearchBox extends React.Component {
     const {travelResults, loading} = this.state;
     const {Itineraries, Agents} = travelResults.travelData;
     return (
-      <div
-        className="search-box--container"
-        // style={{display: "flex", flexDirection: "column"}}
-      >
+      <div className="search-box--container">
         <div className="search-box--form">
-          {/*section--register*/}
-
           <PlaceSearchAutocomplete
-            placeholderName="Departure"
+            placeholderName="&#128747; Departure"
             destination="departure"
           />
 
           <PlaceSearchAutocomplete
-            placeholderName="Arrival"
+            placeholderName="&#128748; Arrival"
             destination="arrival"
           />
 
@@ -110,17 +107,19 @@ class SearchBox extends React.Component {
           <div className="search-box--button-container">
             <button
               onClick={this.searchFlightsPostAxiosHandler}
-              className="button__flight-result"
+              className="btn--small"
             >
               SEARCH FLIGHTS
             </button>
           </div>
         </div>
-        {/* {console.log("travelResults", travelResults)} */}
         <div
           className={`search-box--results__${loading ? "loading" : ""}`}
           style={{flexDirection: "row"}}
         >
+          <div className="alert--container">
+            <Alert />
+          </div>
           <img
             src={Loader}
             className={`search-box--loading__${loading ? "show" : "hide"}`}
@@ -149,5 +148,6 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = {
   setSessionKey,
+  setAlert,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);

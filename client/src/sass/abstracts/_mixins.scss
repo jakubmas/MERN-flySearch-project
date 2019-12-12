@@ -1,3 +1,40 @@
+@mixin header {
+  height: 95vh;
+  background-size: cover;
+  background-position: top;
+  position: relative;
+  display: flex;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+
+  &__logo-box {
+    position: absolute;
+    margin: 4rem 0 0 4rem;
+  }
+
+  &__logo {
+    height: 5.5rem;
+  }
+
+  &__container {
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    display: flex;
+  }
+
+  &__text-box {
+    position: absolute;
+    text-align: center;
+  }
+}
+
+@mixin onboarding-box-style {
+  display: flex;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
 @mixin search-result-flex-space-between {
   display: flex;
   justify-content: space-between;
@@ -16,4 +53,20 @@
   button:hover {
     box-shadow: 0 1rem 2rem rgba($color-black, 0.2);
   }
+}
+
+@mixin alert-styling {
+  margin: 3rem;
+  animation: alertAnimation 5s;
+  border-radius: 3rem;
+}
+
+@mixin form-padding {
+  padding: 11rem 10rem;
+}
+
+@mixin font-input {
+  font-family: append("Lato", "FontAwesome", "comma");
+  font-size: 1.4rem;
+  color: $color-grey-dark;
 }

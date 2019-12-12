@@ -1,12 +1,17 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useState, useEffect} from "react";
 import {Link, withRouter} from "react-router-dom";
-import Input from "../Input";
-import Alert from "../Alert";
+import Input from "../../Input";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {createProfile} from "../../redux/actions/profile";
+import {createProfile, getCurrentProfile} from "../../../redux/actions/profile";
+import Alert from "../../Alert";
 
-const ProfileForm = ({createProfile, history}) => {
+const EditProfile = ({
+  profile: {profile, loading},
+  createProfile,
+  getCurrentProfile,
+  history,
+}) => {
   const [formData, setFormData] = useState({
     website: "",
     location: "",
@@ -17,14 +22,32 @@ const ProfileForm = ({createProfile, history}) => {
     twitter: "",
     facebook: "",
     instagram: "",
-    options: [
-      "Planning Phase",
-      "Currently Travelling",
-      "Returning home",
-      "No, I'm at home",
-      "Other",
-    ],
+    options: [],
   });
+
+  useEffect(() => {
+    if (profile !== null) {
+      getCurrentProfile();
+      setFormData({
+        website: loading || !profile.website ? "" : profile.website,
+        location: loading || !profile.location ? "" : profile.location,
+        status: loading || !profile.status ? "" : profile.status,
+        skills: loading || !profile.skills ? "" : profile.skills,
+        bio: loading || !profile.bio ? "" : profile.bio,
+        youtube: loading || !profile.social ? "" : profile.social.youtube,
+        twitter: loading || !profile.social ? "" : profile.social.twitter,
+        facebook: loading || !profile.social ? "" : profile.social.facebook,
+        instagram: loading || !profile.social ? "" : profile.social.instagram,
+        options: [
+          "Planning Phase",
+          "Currently Travelling",
+          "Returning home",
+          "No, I'm at home",
+          "Other",
+        ],
+      });
+    }
+  }, [loading, getCurrentProfile]);
 
   const {
     website,
@@ -36,6 +59,7 @@ const ProfileForm = ({createProfile, history}) => {
     twitter,
     facebook,
     instagram,
+    options,
   } = formData;
 
   const onChange = e =>
@@ -43,12 +67,12 @@ const ProfileForm = ({createProfile, history}) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    createProfile(formData, history);
+    createProfile(formData, history, true);
   };
 
   return (
-    <div className="profile--container">
-      <div className="profile--main">
+    <div className="profile--update--container">
+      <div className="profile--update--main">
         <div className="profile__form">
           <div className="alert--container">
             <Alert />
@@ -67,7 +91,7 @@ const ProfileForm = ({createProfile, history}) => {
                       value={status}
                       onChange={e => onChange(e)}
                     >
-                      {formData.options.map(option => {
+                      {options.map(option => {
                         return <option value={option}>{option}</option>;
                       })}
                     </select>
@@ -200,8 +224,16 @@ const ProfileForm = ({createProfile, history}) => {
   );
 };
 
-ProfileForm.propTypes = {
+EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
-export default connect(null, {createProfile})(withRouter(ProfileForm));
+const mapStateToProps = state => ({
+  profile: state.profile,
+});
+
+export default connect(mapStateToProps, {createProfile, getCurrentProfile})(
+  withRouter(EditProfile),
+);

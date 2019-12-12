@@ -122,7 +122,9 @@ export default class Itineraries extends Component {
           {segmentIdsOutbound.length > 0 && (
             <Popup
               trigger={
-                <button className="button__flight-result">Details</button>
+                <button className="btn--small btn--small--alignSelf">
+                  Details
+                </button>
               }
               position="right center"
             >
@@ -161,7 +163,7 @@ export default class Itineraries extends Component {
           {segmentIdsOutbound.length > 0 && (
             <Popup
               trigger={
-                <button className="button__flight-resulte btn--animated button__flight-result">
+                <button className="btn--small btn--small--alignSelf">
                   Details
                 </button>
               }
@@ -191,7 +193,7 @@ export default class Itineraries extends Component {
         <div className="payment">
           <p>Price: {linkToPayments[0].Price} &euro;</p>
           <Popup
-            trigger={<button className="button__flight-result">Pay</button>}
+            trigger={<button className="btn--small"> Pay </button>}
             position="left center"
           >
             <div>
@@ -202,7 +204,7 @@ export default class Itineraries extends Component {
                     <p>
                       price: {link.Price} {currencies[0].Symbol}
                     </p>
-                    <button>
+                    <button className="btn--small">
                       <a href={link.DeeplinkUrl}>Pay</a>
                     </button>
                   </div>
@@ -210,6 +212,31 @@ export default class Itineraries extends Component {
               })}
             </div>
           </Popup>
+          <button
+            className="btn--small"
+            onClick={() => {
+              console.log(
+                "elko",
+                linkToPayments,
+                arrivalOutbound,
+                departureOutbound,
+                durationOutbound,
+                arrivalInbound,
+                departureInbound,
+                durationInbound,
+                currencies,
+                segmentIdsOutbound,
+                segmentIdsInbound,
+                this.getPlace("originOutbound")[0].Name,
+                this.props.departureOutbound,
+                this.calculateDuration(durationOutbound),
+                this.getPlace("destinationOutbound")[0].Name,
+                this.props.arrivalOutbound,
+              );
+            }}
+          >
+            Add
+          </button>
         </div>
       </div>
     );

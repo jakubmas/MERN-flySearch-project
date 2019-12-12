@@ -1,31 +1,9 @@
 .header {
-  height: 95vh;
+  @include header;
   background-image: url(../../img/dessert.jpeg);
-  background-size: cover;
-  background-position: top;
-  position: relative;
-  display: flex;
-  -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+}
 
-  &__logo-box {
-    position: absolute;
-    margin: 4rem 0 0 4rem;
-  }
-
-  &__logo {
-    height: 5.5rem;
-  }
-
-  &__container {
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    display: flex;
-  }
-
-  &__text-box {
-    position: absolute;
-    text-align: center;
-  }
+.header--profile {
+  @include header;
+  background-image: url(../../img/forest.jpeg);
 }
