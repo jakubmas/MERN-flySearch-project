@@ -1,4 +1,6 @@
 {
+  "mongoURI": "MongoDB connection string",
+  "jwtSecret": "Your secret word",
   "X-RapidAPI-Host": "Your own X-RapidAPI-Host",
   "X-RapidAPI-Key": "Your own X-RapidAPI-Key"
 }
