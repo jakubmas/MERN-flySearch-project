@@ -7,7 +7,10 @@ import CalendarDate from "./CalendarDate";
 import SearchResults from "./SearchResults";
 import Alert from "../Alert";
 //redux
-import {setSessionKey} from "../../redux/actions/searchFlyQuerries";
+import {
+  setSessionKey,
+  calendarValidation,
+} from "../../redux/actions/searchFlyQuerries";
 import {setAlert} from "../../redux/actions/alert";
 //loader
 import Loader from "../../layout/ajax-loader.gif";
@@ -18,14 +21,23 @@ class SearchBox extends React.Component {
     loading: false,
   };
   componentDidUpdate(prevProps, prevState) {
-    const {sessionKey} = this.props;
-
+    const {
+      sessionKey,
+      departureDate,
+      arrivalDate,
+      calendarValidation,
+    } = this.props;
+    const {travelResults} = this.state;
     if (sessionKey !== prevProps.sessionKey) {
       this.getDataResults(sessionKey);
     }
 
-    if (this.state.travelResults !== prevState.travelResults) {
+    if (travelResults !== prevState.travelResults) {
       this.renderResults();
+    }
+
+    if (new Date(departureDate) > new Date(arrivalDate)) {
+      calendarValidation();
     }
   }
 
@@ -55,6 +67,7 @@ class SearchBox extends React.Component {
       },
     };
     const {departure, arrival, departureDate, arrivalDate} = this.props;
+
     const body = JSON.stringify({
       departure,
       arrival,
@@ -151,6 +164,7 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = {
   setSessionKey,
+  calendarValidation,
   setAlert,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);

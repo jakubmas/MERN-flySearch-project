@@ -4,6 +4,7 @@ import {
   SET_DEPARTURE_DATE,
   SET_ARRIVAL_DATE,
   SET_SESSION_KEY,
+  CLEAN_ARRIVAL_DATE,
 } from "../actions/types";
 import dateToday from "../../util/dateToday";
 
@@ -35,6 +36,8 @@ export default function(state = initialState, action) {
       return {...state, arrivalDate: payload.arrivalDate};
     case SET_SESSION_KEY:
       return {...state, sessionKey: payload.sessionKey};
+    case CLEAN_ARRIVAL_DATE:
+      return {...state, arrivalDate: ""};
     default:
       return state;
   }

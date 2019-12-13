@@ -108,7 +108,7 @@ class PlaceSearchAutocomplete extends React.Component {
   };
 
   renderSugestions = () => {
-    const {results} = this.state;
+    const {results, cursor} = this.state;
     const {destination} = this.props;
     if (results.length === 0) {
       return null;
@@ -118,9 +118,7 @@ class PlaceSearchAutocomplete extends React.Component {
         {results.map(item => (
           <li
             className={`autocomplete--list__item--${
-              this.state.cursor === results.indexOf(item)
-                ? "active"
-                : "inactive"
+              cursor === results.indexOf(item) ? "active" : "inactive"
             }`}
             key={uuid.v4()}
             value={item.CountryName}

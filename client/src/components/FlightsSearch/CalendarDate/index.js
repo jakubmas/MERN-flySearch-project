@@ -87,14 +87,15 @@ class CalendarDate extends React.Component {
       <div>
         <label>{dateLabel}</label>
         <div onClick={this.showCalendarHandler}>
-          <input
-            value={this.state.date}
-            disabled="disabled"
-            style={{cursor: "pointer"}}
-          />
+          <input value={date} disabled="disabled" style={{cursor: "pointer"}} />
         </div>
         <div style={{position: "absolute"}}>
-          {showCalendarDeparture ? <Calendar onChange={this.onChange} /> : null}
+          {showCalendarDeparture ? (
+            <Calendar
+              onChange={this.onChange}
+              value={date ? new Date(date) : null}
+            />
+          ) : null}
         </div>
       </div>
     );

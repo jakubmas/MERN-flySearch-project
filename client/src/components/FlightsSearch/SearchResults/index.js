@@ -144,10 +144,11 @@ class SearchResults extends React.Component {
   };
 
   render() {
+    const {loaded} = this.state;
     return (
       <div>
         <h1>results: </h1>
-        {this.state.loaded ? (
+        {loaded ? (
           <>{this.renderItineraries()}</>
         ) : (
           <p>Look for your flights</p>

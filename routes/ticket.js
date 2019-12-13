@@ -10,7 +10,6 @@ const User = require("../models/User");
 //@access   Private
 router.post("/", auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
     const newTicket = new Ticket({
       outobundCarriageLogo: req.body.outobundCarriageLogo,
       outboundCarriageName: req.body.outboundCarriageName,

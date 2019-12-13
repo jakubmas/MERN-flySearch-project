@@ -34,7 +34,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://0.0.0.0:666",
+  "proxy": "http://0.0.0.0:123",
   "devDependencies": {
     "node-sass": "^4.13.0"
   }

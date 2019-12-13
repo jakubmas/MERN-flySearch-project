@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const unirest = require("unirest");
 const config = require("config");
-const axios = require("axios");
 //@route    GET api/:placeName
 //@desc     Get country for input skyscanner api /
 //@access   Public
@@ -33,7 +32,6 @@ router.post(
     const destinationPlace = req.params.destinationPlace;
     const outboundDate = req.params.outboundDate;
     const inboundDate = req.params.inboundDate;
-    console.log("eeeee", req.params);
     try {
       await unirest
         .post(
