@@ -36,7 +36,7 @@ const ResultBlock = props => {
             <p>{destination}</p>
           </div>
           <div className="to--container--departureDate">
-            <h4>Departure: </h4>
+            <h4>Arrival: </h4>
             <p>{arrivalDate}</p>
           </div>
         </div>

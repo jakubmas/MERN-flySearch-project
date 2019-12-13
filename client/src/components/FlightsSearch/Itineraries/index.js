@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import uuid from "uuid";
 import Popup from "reactjs-popup";
+import axios from "axios";
 import PropTypes from "prop-types";
 import ResultBlock from "../ResultBlock";
 
@@ -93,6 +94,58 @@ export default class Itineraries extends Component {
         return segmentIdsInbound.map(index => segments[index]);
     }
   };
+
+  addTicket = async () => {
+    const {
+      departureOutbound,
+      durationOutbound,
+      arrivalOutbound,
+      departureInbound,
+      durationInbound,
+      arrivalInbound,
+      linkToPayments,
+    } = this.props;
+    const outobundCarriageLogo = this.getCarrierImg(0, "outbound")[0].ImageUrl;
+    const outboundCarriageName = this.getCarrierImg(0, "outbound")[0].Name;
+    const outboundDeparturePlace = this.getPlace("originOutbound")[0].Name;
+    const outboundDepartureDate = departureOutbound;
+    const outboundDuration = this.calculateDuration(durationOutbound);
+    const outboundDestinationPlace = this.getPlace("destinationOutbound")[0]
+      .Name;
+    const outboundArrivalDate = arrivalOutbound;
+    const inboundCarriageLogo = this.getCarrierImg(0, "inbound")[0].ImageUrl;
+    const inboundCarriageName = this.getCarrierImg(0, "inbound")[0].Name;
+    const inboundDeparturePlace = this.getPlace("originInbound")[0].Name;
+    const inboundDepartureDate = departureInbound;
+    const inboundDuration = this.calculateDuration(durationInbound);
+    const inboundDestinationPlace = this.getPlace("destinationInbound")[0].Name;
+    const inboundArrivalDate = arrivalInbound;
+    const payments = linkToPayments;
+    const body = JSON.stringify({
+      outobundCarriageLogo,
+      outboundCarriageName,
+      outboundDeparturePlace,
+      outboundDepartureDate,
+      outboundDuration,
+      outboundDestinationPlace,
+      outboundArrivalDate,
+      inboundCarriageLogo,
+      inboundCarriageName,
+      inboundDeparturePlace,
+      inboundDepartureDate,
+      inboundDuration,
+      inboundDestinationPlace,
+      inboundArrivalDate,
+      payments,
+    });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await axios.post("api/ticket", body, config);
+    console.log("resresres", res);
+  };
   render() {
     const {
       linkToPayments,
@@ -118,7 +171,6 @@ export default class Itineraries extends Component {
             destination={this.getPlace("destinationOutbound")[0].Name}
             arrivalDate={arrivalOutbound}
           />
-
           {segmentIdsOutbound.length > 0 && (
             <Popup
               trigger={
@@ -212,29 +264,7 @@ export default class Itineraries extends Component {
               })}
             </div>
           </Popup>
-          <button
-            className="btn--small"
-            onClick={() => {
-              console.log(
-                "elko",
-                linkToPayments,
-                arrivalOutbound,
-                departureOutbound,
-                durationOutbound,
-                arrivalInbound,
-                departureInbound,
-                durationInbound,
-                currencies,
-                segmentIdsOutbound,
-                segmentIdsInbound,
-                this.getPlace("originOutbound")[0].Name,
-                this.props.departureOutbound,
-                this.calculateDuration(durationOutbound),
-                this.getPlace("destinationOutbound")[0].Name,
-                this.props.arrivalOutbound,
-              );
-            }}
-          >
+          <button className="btn--small" onClick={this.addTicket}>
             Add
           </button>
         </div>
