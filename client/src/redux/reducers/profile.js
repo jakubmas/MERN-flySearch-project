@@ -3,7 +3,6 @@ import {GET_PROFILE, PROFILE_ERROR, CLEAR_PROFILE} from "../actions/types";
 const initialState = {
   profile: null,
   profiles: [],
-  flights: [],
   loading: true,
   error: {},
 };
@@ -29,7 +28,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         profile: null,
-        flights: [],
         loading: false,
       };
     default:

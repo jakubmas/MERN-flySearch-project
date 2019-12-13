@@ -25,7 +25,6 @@ class SearchResults extends React.Component {
 
   renderItineraries = () => {
     const {travelData} = this.props.results;
-    console.log("travelData", travelData);
     if (travelData.Status === "UpdatesPending") {
       console.log("eeeelko updates");
     }

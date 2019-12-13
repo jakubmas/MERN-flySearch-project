@@ -117,20 +117,23 @@ class SearchBox extends React.Component {
           className={`search-box--results__${loading ? "loading" : ""}`}
           style={{flexDirection: "row"}}
         >
-          <div className="alert--container">
+          <div className="alert--container--flights">
             <Alert />
           </div>
+
+          {Itineraries.length > 0 && this.renderResults()}
+          {Agents.length > 0 && Itineraries.length === 0 ? (
+            <h1 className="search-box__title">
+              Seems that there are no filghts available
+            </h1>
+          ) : Itineraries.length > 0 ? null : (
+            <h1 className="search-box__title">Where're you going?</h1>
+          )}
           <img
             src={Loader}
             className={`search-box--loading__${loading ? "show" : "hide"}`}
             alt="loader"
           />
-          {Itineraries.length > 0 && this.renderResults()}
-          {Agents.length > 0 && Itineraries.length === 0 ? (
-            <h1>Seems that there are no filghts available</h1>
-          ) : Itineraries.length > 0 ? null : (
-            <h1>Where're you going?</h1>
-          )}
         </div>
       </div>
     );

@@ -61,11 +61,15 @@ router.post("/", auth, async (req, res) => {
 });
 
 //@route    GET api/ticket
-//@desc     Get all tickets
+//@desc     Get curent users tickets
 //@access   Private
 router.get("/", auth, async (req, res) => {
   try {
-    const tickets = await Ticket.find();
+    const tickets = await Ticket.find({user: req.user.id});
+
+    if (!tickets) {
+      return res.status(400).json({msg: "There are no tickets for this user"});
+    }
     res.json(tickets);
   } catch (err) {
     console.error(err.message);

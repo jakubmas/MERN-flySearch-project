@@ -5,7 +5,12 @@
     justify-content: center;
     flex-wrap: wrap;
   }
-
+  &--container--flights {
+    top: 6rem;
+    left: 6rem;
+    position: fixed;
+    z-index: 2;
+  }
   display: inline-block;
   &--danger {
     @include alert-styling;

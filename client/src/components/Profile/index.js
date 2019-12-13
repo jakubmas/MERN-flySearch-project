@@ -1,11 +1,11 @@
 import React, {Fragment, useEffect} from "react";
-import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {getCurrentProfile} from "../../redux/actions/profile";
 import Header from "../Header";
 import NewProfile from "./NewProfile";
 import ExistingProfile from "./ExistingProfile";
+
 const Profile = ({
   getCurrentProfile,
   auth: {user},

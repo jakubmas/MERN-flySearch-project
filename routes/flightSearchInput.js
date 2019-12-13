@@ -69,7 +69,6 @@ router.post(
         });
     } catch (error) {
       console.error(error.message);
-      console.log("CO SIE DZIEJE", error);
     }
   },
 );
@@ -91,22 +90,14 @@ router.get("/key/:key", (req, res) => {
     )
     .header("X-RapidAPI-Key", config.get("X-RapidAPI-Key"))
     .end(result => {
-      console.log("result.status", result.status);
-      console.log("status body", result.body.Status);
       if (result.status === 429) {
         const msg = result.body;
-        console.log("heeej", result.body);
         return res.json({msg});
       }
 
       const travelData = result.body;
-      if (travelData.ValidationErrors) {
-        // console.log("travelData", travelData);
-      } else {
-        // console.log(travelData.Itineraries);
 
-        return res.json({travelData});
-      }
+      return res.json({travelData});
     });
 });
 

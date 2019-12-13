@@ -23,13 +23,18 @@ const Navbar = ({auth: {isAuthenticated, loading}, logout}) => {
         </Link>
       </li>
       <li className="navigation__item">
+        <Link to="/profile" className="navigation__link">
+          Your profile
+        </Link>
+      </li>
+      <li className="navigation__item">
         <Link to="/search-flights" className="navigation__link">
           FlightBrowser
         </Link>
       </li>
       <li className="navigation__item">
-        <Link to="/profile" className="navigation__link">
-          Your profile
+        <Link to="/tickets" className="navigation__link">
+          Your tickets
         </Link>
       </li>
       <li className="navigation__item">

@@ -8,6 +8,7 @@ import {
   REGISTER_FAIL,
   LOGOUT,
   CLEAR_PROFILE,
+  CLEAR_FLIGHT_PROFILE,
 } from "./types";
 import {setAlert} from "./alert";
 import setAuthToken from "../../util/setAuthToken";
@@ -43,8 +44,6 @@ export const login = (email, password) => async dispatch => {
   const body = JSON.stringify({email, password});
   try {
     const res = await axios.post("/api/auth", body, config);
-    console.log("res", res);
-    console.log("BODY", body);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
@@ -92,5 +91,6 @@ export const register = ({name, email, password}) => async dispatch => {
 //Logout / Clear Profile
 export const logout = () => dispatch => {
   dispatch({type: CLEAR_PROFILE});
+  dispatch({type: CLEAR_FLIGHT_PROFILE});
   dispatch({type: LOGOUT});
 };

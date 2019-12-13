@@ -1,11 +1,13 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
 import uuid from "uuid";
 import Popup from "reactjs-popup";
 import axios from "axios";
 import PropTypes from "prop-types";
+import {setAlert} from "../../../redux/actions/alert";
 import ResultBlock from "../ResultBlock";
 
-export default class Itineraries extends Component {
+class Itineraries extends Component {
   state = {
     popup: false,
   };
@@ -104,7 +106,9 @@ export default class Itineraries extends Component {
       durationInbound,
       arrivalInbound,
       linkToPayments,
+      setAlert,
     } = this.props;
+
     const outobundCarriageLogo = this.getCarrierImg(0, "outbound")[0].ImageUrl;
     const outboundCarriageName = this.getCarrierImg(0, "outbound")[0].Name;
     const outboundDeparturePlace = this.getPlace("originOutbound")[0].Name;
@@ -121,6 +125,7 @@ export default class Itineraries extends Component {
     const inboundDestinationPlace = this.getPlace("destinationInbound")[0].Name;
     const inboundArrivalDate = arrivalInbound;
     const payments = linkToPayments;
+
     const body = JSON.stringify({
       outobundCarriageLogo,
       outboundCarriageName,
@@ -138,13 +143,21 @@ export default class Itineraries extends Component {
       inboundArrivalDate,
       payments,
     });
+
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
+
     const res = await axios.post("api/ticket", body, config);
-    console.log("resresres", res);
+
+    if (res.data === "Ticket saved") {
+      setAlert(res.data, "success", 3000);
+    }
+    if (res.data !== "Ticket saved") {
+      setAlert(res.data, "danger", 3000);
+    }
   };
   render() {
     const {
@@ -272,3 +285,8 @@ export default class Itineraries extends Component {
     );
   }
 }
+const mapDispatchToProps = {
+  setAlert,
+};
+
+export default connect(null, mapDispatchToProps)(Itineraries);
