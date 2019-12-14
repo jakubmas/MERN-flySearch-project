@@ -147,7 +147,7 @@ class SearchResults extends React.Component {
     const {loaded} = this.state;
     return (
       <div>
-        <h1>results: </h1>
+        <h1 className="search-box__title">results: </h1>
         {loaded ? (
           <>{this.renderItineraries()}</>
         ) : (

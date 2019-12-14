@@ -191,7 +191,7 @@ class Itineraries extends Component {
                   Details
                 </button>
               }
-              position="right center"
+              position="bottom"
             >
               <div>
                 <p>{segmentIdsOutbound.length} stops</p>
@@ -232,7 +232,7 @@ class Itineraries extends Component {
                   Details
                 </button>
               }
-              position="right center"
+              position="bottom"
             >
               <div>
                 <p>{segmentIdsInbound.length} stops</p>
@@ -259,7 +259,7 @@ class Itineraries extends Component {
           <p>Price: {linkToPayments[0].Price} &euro;</p>
           <Popup
             trigger={<button className="btn--small"> Pay </button>}
-            position="left center"
+            position="bottom"
           >
             <div>
               {linkToPayments.map(link => {

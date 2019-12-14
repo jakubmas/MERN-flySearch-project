@@ -24,7 +24,7 @@ const Tickets = ({
     <h1>loader</h1>
   ) : flights.length > 0 ? (
     <div className="search-box--container">
-      <h1>Your Flights:</h1>
+      <h1 className="heading-primary your-flights">Your Flights:</h1>
       <div className="alert--container">
         <Alert />
       </div>
@@ -56,7 +56,7 @@ const Tickets = ({
             <div className="payment">
               <Popup
                 trigger={<button className="btn--small"> Pay </button>}
-                position="left center"
+                position="bottom"
               >
                 <div>
                   {flight.payments.map(link => {

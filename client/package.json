@@ -17,7 +17,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cssDev": "node-sass --output-style compact ./src/sass/main.scss ./src/home/css/main.css",
+    "cssWatch": "node-sass --output-style compact --line-numbers --watch ./src/home/css/main.scss -o ./src/home/css/"
   },
   "eslintConfig": {
     "extends": "react-app"

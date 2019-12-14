@@ -2,20 +2,29 @@
   background-color: $color-sandy-1;
   padding: 5rem 0;
   font-size: 1.4rem;
+  display: flex;
 
   &__logo-box {
     width: 12rem;
     height: auto;
     margin: 0 auto;
+    // @include respond(phone) {
+    //   width: 6rem;
+    // }
   }
 
   &__logo {
     width: 12rem;
+    @include respond(phone) {
+      width: 8rem;
+      margin-left: 4rem;
+    }
   }
 
   &__content-container {
     padding: 0 10rem 1rem 10rem;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
   }
 

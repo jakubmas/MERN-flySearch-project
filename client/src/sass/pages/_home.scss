@@ -9,8 +9,14 @@
   .about-content--container {
     display: flex;
     flex-direction: row;
+    @include respond(phone) {
+      flex-direction: column;
+    }
     .about-content--text-wrapper {
       width: 50%;
+      @include respond(phone) {
+        width: 100%;
+      }
     }
   }
 }

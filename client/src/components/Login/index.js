@@ -33,7 +33,7 @@ const Login = ({login, isAuthenticated}) => {
     <section className="section--login">
       <div className="login--container">
         <div className="login--main">
-          <div>
+          <div className="login--alert__container">
             <div className="alert--container">
               <Alert />
             </div>

@@ -6,9 +6,16 @@
   }
   &--flex {
     display: flex;
+
+    @include respond(phone) {
+      flex-direction: column;
+    }
     &--content--1 {
       width: 50%;
-      //   background-color: red;
+
+      @include respond(phone) {
+        width: 100%;
+      }
       .form-group {
         padding-top: 1rem;
 
@@ -19,7 +26,7 @@
 
       textarea {
         margin-top: 1rem;
-        width: 50rem;
+        width: 90%;
         height: 10rem;
         -moz-border-bottom-colors: none;
         -moz-border-left-colors: none;
@@ -35,6 +42,9 @@
         line-height: 1.4em;
         padding: 0.5rem 0.8rem;
         transition: background-color 0.2s ease 0s;
+        @include respond(phone) {
+          width: 45rem;
+        }
       }
 
       textarea:focus {
@@ -48,13 +58,14 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
+      @include respond(phone) {
+        padding-top: 5rem;
+        width: 100%;
+      }
       .social-input {
         display: flex;
         justify-content: space-evenly;
         padding-bottom: 1.5rem;
-        .fab {
-          //   padding: 0 3rem 0 0;
-        }
         .social--input--container {
           width: 80%;
         }

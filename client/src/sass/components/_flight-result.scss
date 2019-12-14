@@ -5,6 +5,10 @@
   //   background-color: red;
   padding: 2rem 4rem;
   border-bottom: 0.5px solid black;
+
+  @include respond(tab-port) {
+    flex-direction: column;
+  }
 }
 
 .result--content {
@@ -45,6 +49,11 @@
   flex-direction: column;
 
   @include search-result-button;
+
+  @include respond(tab-port) {
+    margin: 0 auto;
+    padding: 5rem;
+  }
 }
 
 .payment {
@@ -53,4 +62,8 @@
   flex-direction: column;
   justify-content: space-evenly;
   @include search-result-button;
+  @include respond(tab-port) {
+    flex-direction: row-reverse;
+    margin: 5rem;
+  }
 }

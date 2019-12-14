@@ -30,7 +30,7 @@ const NewProfile = props => {
             doloremque.
           </p>
         </div>
-        <div className="onboarding-box--container--profile">
+        <div className="onboarding-box--container--profile new--profile">
           <Card
             image={laptop}
             heading="Set up your profile"

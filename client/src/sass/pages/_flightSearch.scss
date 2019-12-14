@@ -5,6 +5,9 @@
   flex-direction: column;
   padding: 5rem 10rem 0 10rem;
 
+  @include respond(phone) {
+    padding: 0;
+  }
   .search-box--form {
     display: flex;
     flex-direction: row;
@@ -19,6 +22,21 @@
     padding: 5rem;
     border-radius: 1.5rem;
     justify-content: space-around;
+
+    @include respond(phone) {
+      flex-direction: column;
+      padding: 10rem 0 0 2rem;
+      align-items: center;
+    }
+
+    .calendar--container {
+      @include respond(phone) {
+        align-self: flex-start;
+      }
+      @include respond(tab-port) {
+        margin: 0 1.25rem;
+      }
+    }
   }
 
   .search-box--results {
@@ -26,8 +44,6 @@
       width: 100%;
       height: 100%;
       text-align: center;
-      // background-color: rgba($color-sandy-1, 0.4);
-      //   position: absolute;
     }
   }
 
@@ -41,11 +57,15 @@
   }
   .search-box--button-container {
     align-self: center;
+    @include respond(phone) {
+      padding: 4rem;
+    }
   }
   @include search-result-button;
 
   .search-box__title {
-    margin: 2rem;
+    text-transform: uppercase;
+    padding: 5rem;
     text-align: center;
   }
 }

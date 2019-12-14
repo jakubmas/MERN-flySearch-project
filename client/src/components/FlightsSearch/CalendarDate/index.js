@@ -84,7 +84,7 @@ class CalendarDate extends React.Component {
     const {showCalendarDeparture, date} = this.state;
     const {dateLabel} = this.props;
     return (
-      <div>
+      <div className="calendar--container">
         <label>{dateLabel}</label>
         <div onClick={this.showCalendarHandler}>
           <input value={date} disabled="disabled" style={{cursor: "pointer"}} />

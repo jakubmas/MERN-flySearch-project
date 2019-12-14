@@ -1,3 +1,52 @@
+// MEDIA QUERY MANAGER
+/*
+0-600PX:        PHONE
+600-900PX:      TABLET PORTRAIT
+900-1200PX:     TABLET LANDSCAPE
+1200-1800PX:    DESKTOP
+1800PX+         BIG DESKTOPS
+*/
+
+/*
+breakpoint argument choices:
+- phone
+- tab-port
+- tab-land
+- big-desktop
+*/
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    @media (max-width: 37.5em) {
+      //600px
+      @content;
+    }
+  }
+
+  @if $breakpoint == tab-port {
+    @media (max-width: 56.25em) {
+      //900px
+      @content;
+    }
+  }
+
+  @if $breakpoint == tab-land {
+    @media (max-width: 75em) {
+      //1200px
+      @content;
+    }
+  }
+
+  @if $breakpoint == big-desktop {
+    @media (min-width: 112.5em) {
+      //1800px
+      @content;
+    }
+  }
+}
+
+// OTHER MIXINS
+
 @mixin header {
   height: 95vh;
   background-size: cover;
@@ -33,6 +82,9 @@
   display: flex;
   font-size: 1.5rem;
   text-align: center;
+  @include respond(phone) {
+    flex-direction: column;
+  }
 }
 
 @mixin search-result-flex-space-between {
