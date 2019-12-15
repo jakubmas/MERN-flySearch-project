@@ -44,6 +44,8 @@ class Itineraries extends Component {
         return carriers.filter(
           flight => flight.Id === flightNumbersOutbound[index].CarrierId,
         );
+      default:
+        return null;
     }
   };
 
@@ -69,6 +71,8 @@ class Itineraries extends Component {
         return places.filter(place => place.Id === val);
       case "destinationStation":
         return places.filter(place => place.Id === val);
+      default:
+        return null;
     }
   };
 
@@ -94,6 +98,8 @@ class Itineraries extends Component {
         return segmentIdsOutbound.map(index => segments[index]);
       case "inbound":
         return segmentIdsInbound.map(index => segments[index]);
+      default:
+        return null;
     }
   };
 

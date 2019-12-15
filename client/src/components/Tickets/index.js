@@ -18,7 +18,7 @@ const Tickets = ({
 }) => {
   useEffect(() => {
     getCurrentFlightProfile();
-  }, []);
+  }, [getCurrentFlightProfile]);
 
   return !loading && flights === null ? (
     <h1>loader</h1>

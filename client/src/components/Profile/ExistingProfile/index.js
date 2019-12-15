@@ -1,10 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
-import Card from "../Card";
-import laptop from "../../img/image-laptop.png";
-import ticket from "../../img/image-ticket.png";
-import plane from "../../img/logo.png";
-const ExistingProfile = props => {
+import Card from "../../Card";
+import laptop from "../../../img/image-laptop.png";
+import ticket from "../../../img/image-ticket.png";
+import plane from "../../../img/logo.png";
+const ExistingProfile = () => {
   return (
     <section className="section-about">
       <h2 className="heading-secondary u-margin--bottom-big">Profile</h2>
@@ -49,7 +48,5 @@ const ExistingProfile = props => {
     </section>
   );
 };
-
-ExistingProfile.propTypes = {};
 
 export default ExistingProfile;

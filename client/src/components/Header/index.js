@@ -1,6 +1,5 @@
 import React, {Fragment} from "react";
-import PropTypes from "prop-types";
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
 import mainLogo from "../../img/logo.png";
 const Header = ({subtitle, landing, profile}) => {
   return (
@@ -29,7 +28,5 @@ const Header = ({subtitle, landing, profile}) => {
     </Fragment>
   );
 };
-
-Header.propTypes = {};
 
 export default Header;

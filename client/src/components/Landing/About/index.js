@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import FlippingCard from "../FlippingCard";
 
@@ -37,7 +36,5 @@ const About = props => {
     </div>
   );
 };
-
-About.propTypes = {};
 
 export default About;

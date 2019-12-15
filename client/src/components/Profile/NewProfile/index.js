@@ -1,9 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
-import Card from "../Card";
-import laptop from "../../img/image-laptop.png";
+import Card from "../../Card";
+import laptop from "../../../img/image-laptop.png";
 
-const NewProfile = props => {
+const NewProfile = () => {
   return (
     <section className="section-about">
       <div
@@ -45,7 +44,5 @@ const NewProfile = props => {
     </section>
   );
 };
-
-NewProfile.propTypes = {};
 
 export default NewProfile;

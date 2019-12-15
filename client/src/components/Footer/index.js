@@ -1,9 +1,56 @@
-import React from "react";
+import React, {Fragment} from "react";
+import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
 
 import mainLogo from "../../img/logo.png";
 
-const Footer = props => {
+const Footer = ({auth: {isAuthenticated, loading}}) => {
+  const authLinks = (
+    <ul className="footer__list">
+      <li className="footer__item">
+        <Link to="/" className="footer__link">
+          Home
+        </Link>
+      </li>
+      <li className="footer__item">
+        <Link to="/profile" className="footer__link">
+          Your profile
+        </Link>
+      </li>
+      <li className="footer__item">
+        <Link to="/search-flights" className="footer__link">
+          FlightBrowser
+        </Link>
+      </li>
+      <li className="footer__item">
+        <Link to="/tickets" className="footer__link">
+          Your tickets
+        </Link>
+      </li>
+    </ul>
+  );
+
+  const guestLinks = (
+    <ul className="footer__list">
+      <li className="footer__item">
+        <Link to="/" className="footer__link">
+          Home
+        </Link>
+      </li>
+      <li className="footer__item">
+        <Link to="/register" className="footer__link">
+          Register
+        </Link>
+      </li>
+      <li className="footer__item">
+        <Link to="/login" className="footer__link">
+          Login
+        </Link>
+      </li>
+    </ul>
+  );
+
   return (
     <footer className="footer">
       <div className="footer__logo-box">
@@ -11,28 +58,7 @@ const Footer = props => {
       </div>
       <div className="footer__content-container">
         <div className="footer__navigation">
-          <ul className="footer__list">
-            <li className="footer__item">
-              <a href="#" className="footer__link">
-                Home
-              </a>
-            </li>
-            <li className="footer__item">
-              <a href="#" className="footer__link">
-                Create Account
-              </a>
-            </li>
-            <li className="footer__item">
-              <a href="#" className="footer__link">
-                About us
-              </a>
-            </li>
-            <li className="footer__item">
-              <a href="#" className="footer__link">
-                Contact us
-              </a>
-            </li>
-          </ul>
+          <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
         </div>
         <div className="footer__copyright">
           <p className="footer__copyright-text">
@@ -48,6 +74,13 @@ const Footer = props => {
   );
 };
 
-Footer.propTypes = {};
+Footer.propTypes = {
+  logout: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
 
-export default Footer;
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(Footer);

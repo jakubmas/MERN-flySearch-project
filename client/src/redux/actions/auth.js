@@ -12,7 +12,6 @@ import {
 } from "./types";
 import {setAlert} from "./alert";
 import setAuthToken from "../../util/setAuthToken";
-import {format} from "path";
 
 //Load User
 export const loadUser = () => async dispatch => {
